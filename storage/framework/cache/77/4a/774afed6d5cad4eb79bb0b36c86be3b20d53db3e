@@ -1,0 +1,78 @@
+1533720844a:1:{s:8:"test.htm";a:14:{s:8:"fileName";s:8:"test.htm";s:7:"content";s:1191:"title = "test"
+url = "/test/post/:slug"
+layout = "default"
+is_hidden = 0
+
+[blogPost]
+slug = "{{ :slug }}"
+categoryPage = 404
+
+[staticMenu]
+code = "dd"
+
+[staticBreadcrumbs]
+
+[staticMenu staticMenu2]
+code = "dd"
+
+[staticMenu staticMenu3]
+==
+{% component 'staticMenu3' %}
+
+
+{% set post = blogPost.post %}
+
+<div class="content">{{ post.content_html|raw }}</div>
+
+{% if post.featured_images.count %}
+    <div class="featured-images text-center">
+        {% for image in post.featured_images %}
+            <p>
+                <img
+                    data-src="{{ image.filename }}"
+                    src="{{ image.path }}"
+                    alt="{{ image.description }}"
+                    style="max-width: 100%" />
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}
+{% component 'staticMenu2' %}
+<p class="info">
+    Posted
+    {% if post.categories.count %} in
+        {% for category in post.categories %}
+            <a href="{{ category.url }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
+        {% endfor %}
+    {% endif %}
+    on {{ post.published_at|date('M d, Y') }}
+</p>{% component 'staticBreadcrumbs' %}";s:5:"mtime";i:1533696263;s:6:"markup";s:933:"{% component 'staticMenu3' %}
+
+
+{% set post = blogPost.post %}
+
+<div class="content">{{ post.content_html|raw }}</div>
+
+{% if post.featured_images.count %}
+    <div class="featured-images text-center">
+        {% for image in post.featured_images %}
+            <p>
+                <img
+                    data-src="{{ image.filename }}"
+                    src="{{ image.path }}"
+                    alt="{{ image.description }}"
+                    style="max-width: 100%" />
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}
+{% component 'staticMenu2' %}
+<p class="info">
+    Posted
+    {% if post.categories.count %} in
+        {% for category in post.categories %}
+            <a href="{{ category.url }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
+        {% endfor %}
+    {% endif %}
+    on {{ post.published_at|date('M d, Y') }}
+</p>{% component 'staticBreadcrumbs' %}";s:4:"code";N;s:5:"title";s:4:"test";s:3:"url";s:16:"/test/post/:slug";s:6:"layout";s:7:"default";s:9:"is_hidden";s:1:"0";s:8:"blogPost";a:2:{s:4:"slug";s:11:"{{ :slug }}";s:12:"categoryPage";s:3:"404";}s:10:"staticMenu";a:1:{s:4:"code";s:2:"dd";}s:17:"staticBreadcrumbs";a:0:{}s:22:"staticMenu staticMenu2";a:1:{s:4:"code";s:2:"dd";}s:22:"staticMenu staticMenu3";a:0:{}}}

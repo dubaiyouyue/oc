@@ -1,0 +1,32 @@
+description = "test"
+
+[viewBag]
+snippetProperties[teste][title] = "teste"
+snippetProperties[teste][type] = "dropdown"
+snippetProperties[teste][default] = "teste"
+snippetProperties[teste][options][] = "teste"
+
+[staticPage]
+useContent = 1
+default = 0
+
+[builderDetails]
+modelClass = "Li\Test\Models\Tests"
+identifierValue = "{{ id }}"
+modelKeyColumn = "id"
+displayColumn = "content"
+notFoundMessage = "Record not found"
+==
+而我却热污染{{ staticPage.content|raw }}{% component 'staticPage' %}
+
+{{id}}
+
+{% set record = builderDetails.record %}
+{% set displayColumn = builderDetails.displayColumn %}
+{% set notFoundMessage = builderDetails.notFoundMessage %}
+
+{% if record %}
+    {{ attribute(record, displayColumn) }}
+{% else %}
+    {{ notFoundMessage }}
+{% endif %}

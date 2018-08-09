@@ -1,0 +1,4 @@
+title: Tests
+modelClass: Li\Test\Models\Tests
+toolbar:
+    buttons: reorder_toolbar

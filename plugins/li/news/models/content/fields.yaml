@@ -1,0 +1,6 @@
+fields:
+    richeditor1:
+        label: 'Rich editor'
+        size: ''
+        span: auto
+        type: richeditor

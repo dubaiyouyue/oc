@@ -1,0 +1,5 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table li_news_content'
+    - builder_table_create_li_news_content.php

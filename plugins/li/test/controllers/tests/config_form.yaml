@@ -1,0 +1,10 @@
+name: Tests
+form: $/li/test/models/tests/fields.yaml
+modelClass: Li\Test\Models\Tests
+defaultRedirect: li/test/tests
+create:
+    redirect: 'li/test/tests/update/:id'
+    redirectClose: li/test/tests
+update:
+    redirect: li/test/tests
+    redirectClose: li/test/tests

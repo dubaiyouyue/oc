@@ -1,0 +1,31 @@
+title = "blog"
+url = "/blog/:id"
+layout = "default"
+is_hidden = 0
+
+[builderDetails]
+modelClass = "Li\Test\Models\Tests"
+identifierValue = "{{ :id }}"
+modelKeyColumn = "id"
+displayColumn = "title"
+notFoundMessage = "Record not found"
+==
+<?php
+function onEnd()
+{
+    // Optional - set the page title to the post title
+    if (isset($this->post))
+        $this->page->title = $this->post->title;
+}
+?>
+==
+{% set record = builderDetails.record %}
+{% set displayColumn = builderDetails.displayColumn %}
+{% set notFoundMessage = builderDetails.notFoundMessage %}
+
+{% if record %}
+    {{ attribute(record, displayColumn) }}
+    {{record.content}}
+{% else %}
+    {{ notFoundMessage }}
+{% endif %}

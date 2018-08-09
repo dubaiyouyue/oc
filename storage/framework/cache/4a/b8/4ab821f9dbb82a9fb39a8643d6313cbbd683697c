@@ -1,0 +1,44 @@
+1533721180a:1:{s:8:"test.htm";a:9:{s:8:"fileName";s:8:"test.htm";s:7:"content";s:798:"description = "test"
+
+[viewBag]
+snippetProperties[teste][title] = "teste"
+snippetProperties[teste][type] = "dropdown"
+snippetProperties[teste][default] = "teste"
+snippetProperties[teste][options][] = "teste"
+
+[staticPage]
+useContent = 1
+default = 0
+
+[builderDetails]
+modelClass = "Li\Test\Models\Tests"
+identifierValue = "{{ id }}"
+modelKeyColumn = "id"
+displayColumn = "content"
+notFoundMessage = "Record not found"
+==
+而我却热污染{{ staticPage.content|raw }}{% component 'staticPage' %}
+
+{{id}}
+
+{% set record = builderDetails.record %}
+{% set displayColumn = builderDetails.displayColumn %}
+{% set notFoundMessage = builderDetails.notFoundMessage %}
+
+{% if record %}
+    {{ attribute(record, displayColumn) }}
+{% else %}
+    {{ notFoundMessage }}
+{% endif %}";s:5:"mtime";i:1533720577;s:6:"markup";s:359:"而我却热污染{{ staticPage.content|raw }}{% component 'staticPage' %}
+
+{{id}}
+
+{% set record = builderDetails.record %}
+{% set displayColumn = builderDetails.displayColumn %}
+{% set notFoundMessage = builderDetails.notFoundMessage %}
+
+{% if record %}
+    {{ attribute(record, displayColumn) }}
+{% else %}
+    {{ notFoundMessage }}
+{% endif %}";s:4:"code";N;s:11:"description";s:4:"test";s:7:"viewBag";a:1:{s:17:"snippetProperties";a:1:{s:5:"teste";a:4:{s:5:"title";s:5:"teste";s:4:"type";s:8:"dropdown";s:7:"default";s:5:"teste";s:7:"options";a:1:{i:0;s:5:"teste";}}}}s:10:"staticPage";a:2:{s:10:"useContent";s:1:"1";s:7:"default";s:1:"0";}s:14:"builderDetails";a:5:{s:10:"modelClass";s:20:"Li\Test\Models\Tests";s:15:"identifierValue";s:8:"{{ id }}";s:14:"modelKeyColumn";s:2:"id";s:13:"displayColumn";s:7:"content";s:15:"notFoundMessage";s:16:"Record not found";}}}
