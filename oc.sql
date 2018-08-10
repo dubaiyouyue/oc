@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2018-08-09 10:43:46
+Date: 2018-08-10 10:45:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -191,6 +191,422 @@ CREATE TABLE `cache` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `clake_userextended_comments`
+-- ----------------------------
+DROP TABLE IF EXISTS `clake_userextended_comments`;
+CREATE TABLE `clake_userextended_comments` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `author_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of clake_userextended_comments
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `clake_userextended_fields`
+-- ----------------------------
+DROP TABLE IF EXISTS `clake_userextended_fields`;
+CREATE TABLE `clake_userextended_fields` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` enum('UE_FORM_TEXT','UE_FORM_CHECKBOX','UE_FORM_COLOR','UE_FORM_DATE','UE_FORM_EMAIL','UE_FORM_FILE','UE_FORM_NUMBER','UE_FORM_PASSWORD','UE_FORM_RADIO','UE_FORM_RANGE','UE_FORM_TEL','UE_FORM_TIME','UE_FORM_URL','UE_FORM_SWITCH') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'UE_FORM_TEXT',
+  `validation` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `data` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `flags` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `sort_order` int(11) NOT NULL DEFAULT 1,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `clake_userextended_fields_code_unique` (`code`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of clake_userextended_fields
+-- ----------------------------
+INSERT INTO `clake_userextended_fields` VALUES ('1', 'Nickname', 'nickname', 'A users nickname. These are not unique.', 'UE_FORM_TEXT', 0x7B226164646974696F6E616C223A22222C22636F6E74656E74223A22616C7068615F6E756D222C227265676578223A22222C226D696E223A2233222C226D6178223A223133222C22666C616773223A5B227265717569726564225D7D, 0x7B22706C616365686F6C646572223A224E69636B6E616D652E2E222C22636C617373223A22227D, 0x7B22656E61626C6564223A747275652C22726567697374657261626C65223A66616C73652C226564697461626C65223A747275652C22656E6372797074223A66616C73657D, '1', null, '2018-08-09 03:45:47', '2018-08-09 03:45:47');
+INSERT INTO `clake_userextended_fields` VALUES ('2', 'Suspended', 'core-suspended', '[Core Field] Stores whether or not a user is suspended.', 'UE_FORM_CHECKBOX', 0x7B226164646974696F6E616C223A22222C22636F6E74656E74223A22222C227265676578223A22222C226D696E223A22222C226D6178223A22222C22666C616773223A5B22225D7D, 0x7B22706C616365686F6C646572223A2253757370656E6465642E2E222C22636C617373223A22222C22636F7265223A747275657D, 0x7B22656E61626C6564223A747275652C22726567697374657261626C65223A66616C73652C226564697461626C65223A66616C73652C22656E6372797074223A66616C73657D, '2', null, '2018-08-09 03:45:51', '2018-08-09 03:45:51');
+INSERT INTO `clake_userextended_fields` VALUES ('3', 'Banned', 'core-banned', '[Core Field] Stores whether or not a user is banned.', 'UE_FORM_CHECKBOX', 0x7B226164646974696F6E616C223A22222C22636F6E74656E74223A22222C227265676578223A22222C226D696E223A22222C226D6178223A22222C22666C616773223A5B22225D7D, 0x7B22706C616365686F6C646572223A2242616E6E65642E2E222C22636C617373223A22222C22636F7265223A747275657D, 0x7B22656E61626C6564223A747275652C22726567697374657261626C65223A66616C73652C226564697461626C65223A66616C73652C22656E6372797074223A66616C73657D, '3', null, '2018-08-09 03:45:51', '2018-08-09 03:45:51');
+INSERT INTO `clake_userextended_fields` VALUES ('4', 'Temp Banned', 'core-temp-banned', '[Core Field] Stores whether or not a user is temp banned.', 'UE_FORM_CHECKBOX', 0x7B226164646974696F6E616C223A22222C22636F6E74656E74223A22222C227265676578223A22222C226D696E223A22222C226D6178223A22222C22666C616773223A5B22225D7D, 0x7B22706C616365686F6C646572223A2254656D702042616E6E65642E2E222C22636C617373223A22222C22636F7265223A747275652C22756E62616E5F64617465223A7B2264617465223A22323031382D30382D30392030333A34353A35312E333431383035222C2274696D657A6F6E655F74797065223A332C2274696D657A6F6E65223A22555443227D7D, 0x7B22656E61626C6564223A747275652C22726567697374657261626C65223A66616C73652C226564697461626C65223A66616C73652C22656E6372797074223A66616C73657D, '4', null, '2018-08-09 03:45:51', '2018-08-09 03:45:51');
+INSERT INTO `clake_userextended_fields` VALUES ('5', 'Privacy Setting who can comment', 'core-privacy-can-comment', '[Core Field] Stores a users privacy setting for who can leave them comments.', 'UE_FORM_NUMBER', 0x7B226164646974696F6E616C223A22222C22636F6E74656E74223A22222C227265676578223A22222C226D696E223A22222C226D6178223A22222C22666C616773223A5B22225D7D, 0x7B22706C616365686F6C646572223A224F6374616C20436F64652E2E222C22636C617373223A22222C22636F7265223A747275657D, 0x7B22656E61626C6564223A747275652C22726567697374657261626C65223A66616C73652C226564697461626C65223A66616C73652C22656E6372797074223A66616C73657D, '5', null, '2018-08-09 03:45:51', '2018-08-09 03:45:51');
+INSERT INTO `clake_userextended_fields` VALUES ('6', 'Privacy Setting who can view a profile', 'core-privacy-view-profile', '[Core Field] Stores a users privacy setting for who can view their profile.', 'UE_FORM_NUMBER', 0x7B226164646974696F6E616C223A22222C22636F6E74656E74223A22222C227265676578223A22222C226D696E223A22222C226D6178223A22222C22666C616773223A5B22225D7D, 0x7B22706C616365686F6C646572223A224F6374616C20436F64652E2E222C22636C617373223A22222C22636F7265223A747275657D, 0x7B22656E61626C6564223A747275652C22726567697374657261626C65223A66616C73652C226564697461626C65223A66616C73652C22656E6372797074223A66616C73657D, '6', null, '2018-08-09 03:45:51', '2018-08-09 03:45:51');
+INSERT INTO `clake_userextended_fields` VALUES ('7', 'Privacy Setting who can search them', 'core-privacy-can-search', '[Core Field] Stores a users privacy setting for who can find them in search.', 'UE_FORM_NUMBER', 0x7B226164646974696F6E616C223A22222C22636F6E74656E74223A22222C227265676578223A22222C226D696E223A22222C226D6178223A22222C22666C616773223A5B22225D7D, 0x7B22706C616365686F6C646572223A224F6374616C20436F64652E2E222C22636C617373223A22222C22636F7265223A747275657D, 0x7B22656E61626C6564223A747275652C22726567697374657261626C65223A66616C73652C226564697461626C65223A66616C73652C22656E6372797074223A66616C73657D, '7', null, '2018-08-09 03:45:51', '2018-08-09 03:45:51');
+
+-- ----------------------------
+-- Table structure for `clake_userextended_friends`
+-- ----------------------------
+DROP TABLE IF EXISTS `clake_userextended_friends`;
+CREATE TABLE `clake_userextended_friends` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_that_sent_request` int(11) NOT NULL,
+  `user_that_accepted_request` int(11) NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `accepted` tinyint(1) NOT NULL,
+  `relation` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of clake_userextended_friends
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `clake_userextended_integrated_users`
+-- ----------------------------
+DROP TABLE IF EXISTS `clake_userextended_integrated_users`;
+CREATE TABLE `clake_userextended_integrated_users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `integration_id` bigint(20) NOT NULL,
+  `type` enum('UE_INTEGRATIONS_FACEBOOK','UE_INTEGRATIONS_DISQUS') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'UE_INTEGRATIONS_FACEBOOK',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of clake_userextended_integrated_users
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `clake_userextended_modules`
+-- ----------------------------
+DROP TABLE IF EXISTS `clake_userextended_modules`;
+CREATE TABLE `clake_userextended_modules` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `author` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `version` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `visible` tinyint(1) NOT NULL DEFAULT 1,
+  `enabled` tinyint(1) NOT NULL DEFAULT 1,
+  `locked` tinyint(1) NOT NULL DEFAULT 0,
+  `updated` tinyint(1) NOT NULL DEFAULT 1,
+  `flags` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `module_updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `clake_userextended_modules_name_unique` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of clake_userextended_modules
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `clake_userextended_roles`
+-- ----------------------------
+DROP TABLE IF EXISTS `clake_userextended_roles`;
+CREATE TABLE `clake_userextended_roles` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sort_order` int(11) NOT NULL DEFAULT 1,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of clake_userextended_roles
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `clake_userextended_routes`
+-- ----------------------------
+DROP TABLE IF EXISTS `clake_userextended_routes`;
+CREATE TABLE `clake_userextended_routes` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `route` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `attempts` int(11) NOT NULL,
+  `last_accessed_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT 1,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cascade` tinyint(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of clake_userextended_routes
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `clake_userextended_routes_pivot`
+-- ----------------------------
+DROP TABLE IF EXISTS `clake_userextended_routes_pivot`;
+CREATE TABLE `clake_userextended_routes_pivot` (
+  `route_id` int(10) unsigned NOT NULL,
+  `restriction_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`route_id`,`restriction_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of clake_userextended_routes_pivot
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `clake_userextended_route_restriction`
+-- ----------------------------
+DROP TABLE IF EXISTS `clake_userextended_route_restriction`;
+CREATE TABLE `clake_userextended_route_restriction` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `role_id` int(11) DEFAULT NULL,
+  `group_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `ip` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `attempts` int(11) NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` enum('UE_WHITELIST','UE_BLACKLIST') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'UE_WHITELIST',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of clake_userextended_route_restriction
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `clake_userextended_timezones`
+-- ----------------------------
+DROP TABLE IF EXISTS `clake_userextended_timezones`;
+CREATE TABLE `clake_userextended_timezones` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `abbr` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `utc` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `offset` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `count` int(11) NOT NULL DEFAULT 0,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=198 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of clake_userextended_timezones
+-- ----------------------------
+INSERT INTO `clake_userextended_timezones` VALUES ('1', 'UTC', 'Coordinated Universal Time', 'UTC', '0', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('2', 'BIT', 'Baker Island Time', 'UTC-12', '-12', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('3', 'NUT', 'Niue Time', 'UTC-11', '-11', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('4', 'SST', 'Samoa Standard Time', 'UTC-11', '-11', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('5', 'CKT', 'Cook Island Time', 'UTC-10', '-10', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('6', 'HAST', 'Hawaii-Aleutian Standard Time', 'UTC-10', '-10', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('7', 'HST', 'Hawaii Standard Time', 'UTC-10', '-10', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('8', 'TAHT', 'Tahiti Time', 'UTC-10', '-10', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('9', 'MART', 'Marquesas Islands Time', 'UTC-09:30', '-09:30', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('10', 'MIT', 'Marquesas Islands Time', 'UTC-09:30', '-09:30', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('11', 'AKST', 'Alaska Standard Time', 'UTC-09', '-9', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('12', 'GAMT', 'Gambier Islands', 'UTC-09', '-9', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('13', 'GIT', 'Gambier Island Time', 'UTC-09', '-9', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('14', 'HADT', 'Hawaii-Aleutian Daylight Time', 'UTC-09', '-9', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('15', 'AKDT', 'Alaska Daylight Time', 'UTC-08', '-8', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('16', 'CIST', 'Clipperton Island Standard Time', 'UTC-08', '-8', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('17', 'PST', 'Pacific Standard Time (North America)', 'UTC-08', '-8', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('18', 'MST', 'Mountain Standard Time (North America)', 'UTC-07', '-7', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('19', 'PDT', 'Pacific Daylight Time (North America)', 'UTC-07', '-7', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('20', 'CST', 'Central Standard Time (North America)', 'UTC-06', '-6', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('21', 'EAST', 'Easter Island Standard Time', 'UTC-06', '-6', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('22', 'GALT', 'Galapagos Time', 'UTC-06', '-6', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('23', 'MDT', 'Mountain Daylight Time (North America)', 'UTC-06', '-6', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('24', 'CDT', 'Central Daylight Time (North America)', 'UTC-05', '-5', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('25', 'COT', 'Colombia Time', 'UTC-05', '-5', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('26', 'CST', 'Cuba Standard Time', 'UTC-05', '-5', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('27', 'EASST', 'Easter Island Standard Summer Time', 'UTC-05', '-5', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('28', 'ECT', 'Ecuador Time', 'UTC-05', '-5', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('29', 'EST', 'Eastern Standard Time (North America)', 'UTC-05', '-5', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('30', 'PET', 'Peru Time', 'UTC-05', '-5', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('31', 'VET', 'Venezuelan Standard Time', 'UTC-04:30', '-04:30', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('32', 'AMT', 'Amazon Time (Brazil)[2]', 'UTC-04', '-4', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('33', 'AST', 'Atlantic Standard Time', 'UTC-04', '-4', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('34', 'BOT', 'Bolivia Time', 'UTC-04', '-4', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('35', 'CDT', 'Cuba Daylight Time[3]', 'UTC-04', '-4', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('36', 'CLT', 'Chile Standard Time', 'UTC-04', '-4', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('37', 'COST', 'Colombia Summer Time', 'UTC-04', '-4', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('38', 'ECT', 'Eastern Caribbean Time (does not recognise DST)', 'UTC-04', '-4', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('39', 'EDT', 'Eastern Daylight Time (North America)', 'UTC-04', '-4', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('40', 'FKT', 'Falkland Islands Time', 'UTC-04', '-4', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('41', 'GYT', 'Guyana Time', 'UTC-04', '-4', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('42', 'PYT', 'Paraguay Time (Brazil)[7]', 'UTC-04', '-4', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('43', 'NST', 'Newfoundland Standard Time', 'UTC-03:30', '-03:30', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('44', 'NT', 'Newfoundland Time', 'UTC-03:30', '-03:30', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('45', 'ADT', 'Atlantic Daylight Time', 'UTC-03', '-3', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('46', 'AMST', 'Amazon Summer Time (Brazil)[1]', 'UTC-03', '-3', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('47', 'ART', 'Argentina Time', 'UTC-03', '-3', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('48', 'BRT', 'Brasilia Time', 'UTC-03', '-3', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('49', 'CLST', 'Chile Summer Time', 'UTC-03', '-3', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('50', 'FKST', 'Falkland Islands Standard Time', 'UTC-03', '-3', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('51', 'FKST', 'Falkland Islands Summer Time', 'UTC-03', '-3', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('52', 'GFT', 'French Guiana Time', 'UTC-03', '-3', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('53', 'PMST', 'Saint Pierre and Miquelon Standard Time', 'UTC-03', '-3', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('54', 'PYST', 'Paraguay Summer Time (Brazil)', 'UTC-03', '-3', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('55', 'ROTT', 'Rothera Research Station Time', 'UTC-03', '-3', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('56', 'SRT', 'Suriname Time', 'UTC-03', '-3', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('57', 'UYT', 'Uruguay Standard Time', 'UTC-03', '-3', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('58', 'NDT', 'Newfoundland Daylight Time', 'UTC-02:30', '-02:30', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('59', 'FNT', 'Fernando de Noronha Time', 'UTC-02', '-2', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('60', 'GST', 'South Georgia and the South Sandwich Islands', 'UTC-02', '-2', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('61', 'PMDT', 'Saint Pierre and Miquelon Daylight time', 'UTC-02', '-2', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('62', 'UYST', 'Uruguay Summer Time', 'UTC-02', '-2', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('63', 'AZOST', 'Azores Standard Time', 'UTC-01', '-1', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('64', 'CVT', 'Cape Verde Time', 'UTC-01', '-1', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('65', 'EGT', 'Eastern Greenland Time', 'UTC-01', '-1', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('66', 'GMT', 'Greenwich Mean Time', 'UTC', '0', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('67', 'UCT', 'Coordinated Universal Time', 'UTC', '0', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('68', 'WET', 'Western European Time', 'UTC', '0', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('69', 'Z', 'Zulu Time (Coordinated Universal Time)', 'UTC', '0', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('70', 'EGST', 'Eastern Greenland Summer Time', 'UTC+00', '0', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('71', 'BST', 'British Summer Time (British Standard Time from Feb 1968 to Oct 1971)', 'UTC+01', '1', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('72', 'CET', 'Central European Time', 'UTC+01', '1', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('73', 'DFT', 'AIX specific equivalent of Central European Time', 'UTC+01', '1', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('74', 'IST', 'Irish Standard Time', 'UTC+01', '1', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('75', 'MET', 'Middle European Time Same zone as CET', 'UTC+01', '1', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('76', 'WAT', 'West Africa Time', 'UTC+01', '1', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('77', 'WEDT', 'Western European Daylight Time', 'UTC+01', '1', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('78', 'WEST', 'Western European Summer Time', 'UTC+01', '1', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('79', 'CAT', 'Central Africa Time', 'UTC+02', '2', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('80', 'CEDT', 'Central European Daylight Time', 'UTC+02', '2', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('81', 'CEST', 'Central European Summer Time (Cf. HAEC)', 'UTC+02', '2', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('82', 'EET', 'Eastern European Time', 'UTC+02', '2', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('83', 'HAEC', 'Heure Avancée d\'Europe Centrale francised name for CEST', 'UTC+02', '2', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('84', 'IST', 'Israel Standard Time', 'UTC+02', '2', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('85', 'MEST', 'Middle European Saving Time Same zone as CEST', 'UTC+02', '2', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('86', 'SAST', 'South African Standard Time', 'UTC+02', '2', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('87', 'WAST', 'West Africa Summer Time', 'UTC+02', '2', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('88', 'AST', 'Arabia Standard Time', 'UTC+03', '3', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('89', 'EAT', 'East Africa Time', 'UTC+03', '3', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('90', 'EEDT', 'Eastern European Daylight Time', 'UTC+03', '3', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('91', 'EEST', 'Eastern European Summer Time', 'UTC+03', '3', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('92', 'FET', 'Further-eastern European Time', 'UTC+03', '3', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('93', 'IDT', 'Israel Daylight Time', 'UTC+03', '3', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('94', 'IOT', 'Indian Ocean Time', 'UTC+03', '3', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('95', 'SYOT', 'Showa Station Time', 'UTC+03', '3', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('96', 'IRST', 'Iran Standard Time', 'UTC+03:30', '+03:30', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('97', 'AMT', 'Armenia Time', 'UTC+04', '4', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('98', 'AZT', 'Azerbaijan Time', 'UTC+04', '4', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('99', 'GET', 'Georgia Standard Time', 'UTC+04', '4', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('100', 'GST', 'Gulf Standard Time', 'UTC+04', '4', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('101', 'MSK', 'Moscow Time', 'UTC+04', '4', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('102', 'MUT', 'Mauritius Time', 'UTC+04', '4', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('103', 'RET', 'Réunion Time', 'UTC+04', '4', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('104', 'SAMT', 'Samara Time', 'UTC+04', '4', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('105', 'SCT', 'Seychelles Time', 'UTC+04', '4', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('106', 'VOLT', 'Volgograd Time', 'UTC+04', '4', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('107', 'AFT', 'Afghanistan Time', 'UTC+04:30', '+04:30', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('108', 'AMST', 'Armenia Summer Time', 'UTC+05', '5', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('109', 'HMT', 'Heard and McDonald Islands Time', 'UTC+05', '5', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('110', 'MAWT', 'Mawson Station Time', 'UTC+05', '5', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('111', 'MVT', 'Maldives Time', 'UTC+05', '5', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('112', 'ORAT', 'Oral Time', 'UTC+05', '5', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('113', 'PKT', 'Pakistan Standard Time', 'UTC+05', '5', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('114', 'TFT', 'Indian/Kerguelen', 'UTC+05', '5', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('115', 'TJT', 'Tajikistan Time', 'UTC+05', '5', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('116', 'TMT', 'Turkmenistan Time', 'UTC+05', '5', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('117', 'UZT', 'Uzbekistan Time', 'UTC+05', '5', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('118', 'IST', 'Indian Standard Time', 'UTC+05:30', '+05:30', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('119', 'SLST', 'Sri Lanka Time', 'UTC+05:30', '+05:30', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('120', 'NPT', 'Nepal Time', 'UTC+05:45', '+05:45', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('121', 'BIOT', 'British Indian Ocean Time', 'UTC+06', '6', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('122', 'BST', 'Bangladesh Standard Time', 'UTC+06', '6', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('123', 'BTT', 'Bhutan Time', 'UTC+06', '6', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('124', 'KGT', 'Kyrgyzstan time', 'UTC+06', '6', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('125', 'VOST', 'Vostok Station Time', 'UTC+06', '6', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('126', 'YEKT', 'Yekaterinburg Time', 'UTC+06', '6', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('127', 'CCT', 'Cocos Islands Time', 'UTC+06:30', '+06:30', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('128', 'MMT', 'Myanmar Time', 'UTC+06:30', '+06:30', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('129', 'MST', 'Myanmar Standard Time', 'UTC+06:30', '+06:30', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('130', 'CXT', 'Christmas Island Time', 'UTC+07', '7', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('131', 'DAVT', 'Davis Time', 'UTC+07', '7', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('132', 'HOVT', 'Khovd Time', 'UTC+07', '7', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('133', 'ICT', 'Indochina Time', 'UTC+07', '7', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('134', 'KRAT', 'Krasnoyarsk Time', 'UTC+07', '7', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('135', 'OMST', 'Omsk Time', 'UTC+07', '7', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('136', 'THA', 'Thailand Standard Time', 'UTC+07', '7', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('137', 'ACT', 'ASEAN Common Time', 'UTC+08', '8', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('138', 'AWST', 'Australian Western Standard Time', 'UTC+08', '8', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('139', 'BDT', 'Brunei Time', 'UTC+08', '8', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('140', 'CHOT', 'Choibalsan', 'UTC+08', '8', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('141', 'CIT', 'Central Indonesia Time', 'UTC+08', '8', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('142', 'CST', 'China Standard Time', 'UTC+08', '8', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('143', 'CT', 'China time', 'UTC+08', '8', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('144', 'HKT', 'Hong Kong Time', 'UTC+08', '8', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('145', 'IRDT', 'Iran Daylight Time', 'UTC+08', '8', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('146', 'MST', 'Malaysia Standard Time', 'UTC+08', '8', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('147', 'MYT', 'Malaysia Time', 'UTC+08', '8', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('148', 'PHT', 'Philippine Time', 'UTC+08', '8', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('149', 'SGT', 'Singapore Time', 'UTC+08', '8', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('150', 'SST', 'Singapore Standard Time', 'UTC+08', '8', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('151', 'ULAT', 'Ulaanbaatar Time', 'UTC+08', '8', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('152', 'WST', 'Western Standard Time', 'UTC+08', '8', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('153', 'CWST', 'Central Western Standard Time (Australia)', 'UTC+08:45', '+08:45', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('154', 'AWDT', 'Australian Western Daylight Time', 'UTC+09', '9', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('155', 'EIT', 'Eastern Indonesian Time', 'UTC+09', '9', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('156', 'IRKT', 'Irkutsk Time', 'UTC+09', '9', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('157', 'JST', 'Japan Standard Time', 'UTC+09', '9', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('158', 'KST', 'Korea Standard Time', 'UTC+09', '9', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('159', 'TLT', 'Timor Leste Time', 'UTC+09', '9', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('160', 'ACST', 'Australian Central Standard Time', 'UTC+09:30', '+09:30', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('161', 'CST', 'Central Standard Time (Australia)', 'UTC+09:30', '+09:30', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('162', 'AEST', 'Australian Eastern Standard Time', 'UTC+10', '10', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('163', 'ChST', 'Chamorro Standard Time', 'UTC+10', '10', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('164', 'CHUT', 'Chuuk Time', 'UTC+10', '10', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('165', 'DDUT', 'Dumont d\'Urville Time', 'UTC+10', '10', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('166', 'EST', 'Eastern Standard Time (Australia)', 'UTC+10', '10', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('167', 'PGT', 'Papua New Guinea Time', 'UTC+10', '10', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('168', 'VLAT', 'Vladivostok Time', 'UTC+10', '10', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('169', 'YAKT', 'Yakutsk Time', 'UTC+10', '10', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('170', 'ACDT', 'Australian Central Daylight Time', 'UTC+10:30', '+10:30', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('171', 'CST', 'Central Summer Time (Australia)', 'UTC+10:30', '+10:30', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('172', 'LHST', 'Lord Howe Standard Time', 'UTC+10:30', '+10:30', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('173', 'AEDT', 'Australian Eastern Daylight Time', 'UTC+11', '11', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('174', 'KOST', 'Kosrae Time', 'UTC+11', '11', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('175', 'LHST', 'Lord Howe Summer Time', 'UTC+11', '11', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('176', 'MIST', 'Macquarie Island Station Time', 'UTC+11', '11', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('177', 'NCT', 'New Caledonia Time', 'UTC+11', '11', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('178', 'PONT', 'Pohnpei Standard Time', 'UTC+11', '11', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('179', 'SAKT', 'Sakhalin Island time', 'UTC+11', '11', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('180', 'SBT', 'Solomon Islands Time', 'UTC+11', '11', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('181', 'VUT', 'Vanuatu Time', 'UTC+11', '11', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('182', 'NFT', 'Norfolk Time', 'UTC+11:30', '+11:30', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('183', 'FJT', 'Fiji Time', 'UTC+12', '12', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('184', 'GILT', 'Gilbert Island Time', 'UTC+12', '12', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('185', 'MAGT', 'Magadan Time', 'UTC+12', '12', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('186', 'MHT', 'Marshall Islands', 'UTC+12', '12', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('187', 'NZST', 'New Zealand Standard Time', 'UTC+12', '12', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('188', 'PETT', 'Kamchatka Time', 'UTC+12', '12', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('189', 'TVT', 'Tuvalu Time', 'UTC+12', '12', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('190', 'WAKT', 'Wake Island Time', 'UTC+12', '12', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('191', 'CHAST', 'Chatham Standard Time', 'UTC+12:45', '+12:45', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('192', 'NZDT', 'New Zealand Daylight Time', 'UTC+13', '13', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('193', 'PHOT', 'Phoenix Island Time', 'UTC+13', '13', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('194', 'TOT', 'Tonga Time', 'UTC+13', '13', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('195', 'CHADT', 'Chatham Daylight Time', 'UTC+13:45', '+13:45', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('196', 'LINT', 'Line Islands Time', 'UTC+14', '14', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+INSERT INTO `clake_userextended_timezones` VALUES ('197', 'TKT', 'Tokelau Time', 'UTC+14', '14', '0', null, '2018-08-09 03:45:44', '2018-08-09 03:45:44');
+
+-- ----------------------------
 -- Table structure for `cms_theme_data`
 -- ----------------------------
 DROP TABLE IF EXISTS `cms_theme_data`;
@@ -253,11 +669,12 @@ CREATE TABLE `deferred_bindings` (
   KEY `deferred_bindings_slave_type_index` (`slave_type`),
   KEY `deferred_bindings_slave_id_index` (`slave_id`),
   KEY `deferred_bindings_session_key_index` (`session_key`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of deferred_bindings
 -- ----------------------------
+INSERT INTO `deferred_bindings` VALUES ('2', 'RainLab\\Notify\\Models\\NotificationRule', 'rule_conditions', 'RainLab\\Notify\\Models\\RuleCondition', '1', 'zThOGQiKetXmj352iWfp9AHTKC2mLPkOT8oAMqvn', '1', '2018-08-09 06:39:37', '2018-08-09 06:39:37');
 
 -- ----------------------------
 -- Table structure for `failed_jobs`
@@ -275,6 +692,204 @@ CREATE TABLE `failed_jobs` (
 
 -- ----------------------------
 -- Records of failed_jobs
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `hambern_company_employees`
+-- ----------------------------
+DROP TABLE IF EXISTS `hambern_company_employees`;
+CREATE TABLE `hambern_company_employees` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `quote` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `born_at` date DEFAULT NULL,
+  `published_at` date DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `social_media` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `hambern_company_employees_slug_index` (`slug`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of hambern_company_employees
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `hambern_company_galleries`
+-- ----------------------------
+DROP TABLE IF EXISTS `hambern_company_galleries`;
+CREATE TABLE `hambern_company_galleries` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `published_at` date DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `hambern_company_galleries_slug_index` (`slug`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of hambern_company_galleries
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `hambern_company_links`
+-- ----------------------------
+DROP TABLE IF EXISTS `hambern_company_links`;
+CREATE TABLE `hambern_company_links` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `published_at` date DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `hambern_company_links_slug_index` (`slug`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of hambern_company_links
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `hambern_company_pivots`
+-- ----------------------------
+DROP TABLE IF EXISTS `hambern_company_pivots`;
+CREATE TABLE `hambern_company_pivots` (
+  `employee_id` int(10) unsigned DEFAULT NULL,
+  `gallery_id` int(10) unsigned DEFAULT NULL,
+  `project_id` int(10) unsigned DEFAULT NULL,
+  `role_id` int(10) unsigned DEFAULT NULL,
+  `service_id` int(10) unsigned DEFAULT NULL,
+  `testimonial_id` int(10) unsigned DEFAULT NULL,
+  `link_id` int(10) unsigned DEFAULT NULL,
+  `tag_id` int(11) DEFAULT NULL,
+  KEY `hambern_company_pivots_employee_id_index` (`employee_id`),
+  KEY `hambern_company_pivots_gallery_id_index` (`gallery_id`),
+  KEY `hambern_company_pivots_project_id_index` (`project_id`),
+  KEY `hambern_company_pivots_role_id_index` (`role_id`),
+  KEY `hambern_company_pivots_service_id_index` (`service_id`),
+  KEY `hambern_company_pivots_testimonial_id_index` (`testimonial_id`),
+  KEY `hambern_company_pivots_link_id_index` (`link_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of hambern_company_pivots
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `hambern_company_projects`
+-- ----------------------------
+DROP TABLE IF EXISTS `hambern_company_projects`;
+CREATE TABLE `hambern_company_projects` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `published_at` date DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `hambern_company_projects_slug_index` (`slug`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of hambern_company_projects
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `hambern_company_roles`
+-- ----------------------------
+DROP TABLE IF EXISTS `hambern_company_roles`;
+CREATE TABLE `hambern_company_roles` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `published_at` date DEFAULT NULL,
+  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `hambern_company_roles_slug_index` (`slug`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of hambern_company_roles
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `hambern_company_services`
+-- ----------------------------
+DROP TABLE IF EXISTS `hambern_company_services`;
+CREATE TABLE `hambern_company_services` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `published_at` date DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `hambern_company_services_slug_index` (`slug`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of hambern_company_services
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `hambern_company_tags`
+-- ----------------------------
+DROP TABLE IF EXISTS `hambern_company_tags`;
+CREATE TABLE `hambern_company_tags` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `published_at` date DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `hambern_company_tags_slug_index` (`slug`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of hambern_company_tags
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `hambern_company_testimonials`
+-- ----------------------------
+DROP TABLE IF EXISTS `hambern_company_testimonials`;
+CREATE TABLE `hambern_company_testimonials` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `source` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `published_at` date DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of hambern_company_testimonials
 -- ----------------------------
 
 -- ----------------------------
@@ -399,6 +1014,24 @@ CREATE TABLE `indikator_news_subscribers` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `iswtf_setinfo_sinfos`
+-- ----------------------------
+DROP TABLE IF EXISTS `iswtf_setinfo_sinfos`;
+CREATE TABLE `iswtf_setinfo_sinfos` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `company` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `longitude` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `latitude` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of iswtf_setinfo_sinfos
+-- ----------------------------
+INSERT INTO `iswtf_setinfo_sinfos` VALUES ('1', '安全网', '南宁金外滩商务大厦10', '456', '123');
+
+-- ----------------------------
 -- Table structure for `jobs`
 -- ----------------------------
 DROP TABLE IF EXISTS `jobs`;
@@ -416,175 +1049,6 @@ CREATE TABLE `jobs` (
 
 -- ----------------------------
 -- Records of jobs
--- ----------------------------
-
--- ----------------------------
--- Table structure for `li_news_content`
--- ----------------------------
-DROP TABLE IF EXISTS `li_news_content`;
-CREATE TABLE `li_news_content` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- ----------------------------
--- Records of li_news_content
--- ----------------------------
-
--- ----------------------------
--- Table structure for `li_test_tests`
--- ----------------------------
-DROP TABLE IF EXISTS `li_test_tests`;
-CREATE TABLE `li_test_tests` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- ----------------------------
--- Records of li_test_tests
--- ----------------------------
-INSERT INTO `li_test_tests` VALUES ('1', 'badsfasd发大水发射点发吧标题', '<p>fdsafsda c发大水发大水范德萨范德萨范德萨范德萨范德萨</p>');
-
--- ----------------------------
--- Table structure for `lovata_shopaholic_additional_categories`
--- ----------------------------
-DROP TABLE IF EXISTS `lovata_shopaholic_additional_categories`;
-CREATE TABLE `lovata_shopaholic_additional_categories` (
-  `category_id` int(10) unsigned NOT NULL,
-  `product_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`category_id`,`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- ----------------------------
--- Records of lovata_shopaholic_additional_categories
--- ----------------------------
-
--- ----------------------------
--- Table structure for `lovata_shopaholic_brands`
--- ----------------------------
-DROP TABLE IF EXISTS `lovata_shopaholic_brands`;
-CREATE TABLE `lovata_shopaholic_brands` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `active` tinyint(1) NOT NULL DEFAULT 0,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `external_id` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `preview_text` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sort_order` int(11) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `lovata_shopaholic_brands_slug_unique` (`slug`),
-  KEY `lovata_shopaholic_brands_name_index` (`name`),
-  KEY `lovata_shopaholic_brands_slug_index` (`slug`),
-  KEY `lovata_shopaholic_brands_code_index` (`code`),
-  KEY `lovata_shopaholic_brands_external_id_index` (`external_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- ----------------------------
--- Records of lovata_shopaholic_brands
--- ----------------------------
-
--- ----------------------------
--- Table structure for `lovata_shopaholic_categories`
--- ----------------------------
-DROP TABLE IF EXISTS `lovata_shopaholic_categories`;
-CREATE TABLE `lovata_shopaholic_categories` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `active` tinyint(1) NOT NULL DEFAULT 0,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `external_id` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `preview_text` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `parent_id` int(10) unsigned DEFAULT NULL,
-  `nest_left` int(10) unsigned DEFAULT NULL,
-  `nest_right` int(10) unsigned DEFAULT NULL,
-  `nest_depth` int(10) unsigned DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `lovata_shopaholic_categories_slug_unique` (`slug`),
-  KEY `lovata_shopaholic_categories_name_index` (`name`),
-  KEY `lovata_shopaholic_categories_slug_index` (`slug`),
-  KEY `lovata_shopaholic_categories_code_index` (`code`),
-  KEY `lovata_shopaholic_categories_external_id_index` (`external_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- ----------------------------
--- Records of lovata_shopaholic_categories
--- ----------------------------
-
--- ----------------------------
--- Table structure for `lovata_shopaholic_offers`
--- ----------------------------
-DROP TABLE IF EXISTS `lovata_shopaholic_offers`;
-CREATE TABLE `lovata_shopaholic_offers` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `active` tinyint(1) NOT NULL DEFAULT 0,
-  `product_id` int(10) unsigned DEFAULT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `external_id` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `price` decimal(15,2) DEFAULT NULL,
-  `old_price` decimal(15,2) DEFAULT NULL,
-  `quantity` int(10) unsigned NOT NULL DEFAULT 0,
-  `preview_text` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `lovata_shopaholic_offers_name_index` (`name`),
-  KEY `lovata_shopaholic_offers_code_index` (`code`),
-  KEY `lovata_shopaholic_offers_external_id_index` (`external_id`),
-  KEY `lovata_shopaholic_offers_product_id_index` (`product_id`),
-  KEY `lovata_shopaholic_offers_price_index` (`price`),
-  KEY `lovata_shopaholic_offers_old_price_index` (`old_price`),
-  KEY `lovata_shopaholic_offers_quantity_index` (`quantity`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- ----------------------------
--- Records of lovata_shopaholic_offers
--- ----------------------------
-
--- ----------------------------
--- Table structure for `lovata_shopaholic_products`
--- ----------------------------
-DROP TABLE IF EXISTS `lovata_shopaholic_products`;
-CREATE TABLE `lovata_shopaholic_products` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `active` tinyint(1) NOT NULL DEFAULT 0,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `brand_id` int(10) unsigned DEFAULT NULL,
-  `category_id` int(10) unsigned DEFAULT NULL,
-  `external_id` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `preview_text` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `lovata_shopaholic_products_slug_unique` (`slug`),
-  KEY `lovata_shopaholic_products_name_index` (`name`),
-  KEY `lovata_shopaholic_products_slug_index` (`slug`),
-  KEY `lovata_shopaholic_products_code_index` (`code`),
-  KEY `lovata_shopaholic_products_external_id_index` (`external_id`),
-  KEY `lovata_shopaholic_products_brand_id_index` (`brand_id`),
-  KEY `lovata_shopaholic_products_category_id_index` (`category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- ----------------------------
--- Records of lovata_shopaholic_products
 -- ----------------------------
 
 -- ----------------------------
@@ -703,6 +1167,27 @@ CREATE TABLE `rainlab_blog_posts_categories` (
 
 -- ----------------------------
 -- Records of rainlab_blog_posts_categories
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `rainlab_user_mail_blockers`
+-- ----------------------------
+DROP TABLE IF EXISTS `rainlab_user_mail_blockers`;
+CREATE TABLE `rainlab_user_mail_blockers` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `template` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_id` int(10) unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `rainlab_user_mail_blockers_email_index` (`email`),
+  KEY `rainlab_user_mail_blockers_template_index` (`template`),
+  KEY `rainlab_user_mail_blockers_user_id_index` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of rainlab_user_mail_blockers
 -- ----------------------------
 
 -- ----------------------------
@@ -896,13 +1381,21 @@ CREATE TABLE `system_mail_templates` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `system_mail_templates_layout_id_index` (`layout_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of system_mail_templates
 -- ----------------------------
 INSERT INTO `system_mail_templates` VALUES ('1', 'backend::mail.invite', null, 'Invite new admin to the site', null, null, '2', '0', '2018-08-07 08:05:22', '2018-08-07 08:05:22');
 INSERT INTO `system_mail_templates` VALUES ('2', 'backend::mail.restore', null, 'Reset an admin password', null, null, '2', '0', '2018-08-07 08:05:22', '2018-08-07 08:05:22');
+INSERT INTO `system_mail_templates` VALUES ('3', 'rainlab.user::mail.activate', null, 'Activate a new user', null, null, '1', '0', '2018-08-09 03:37:32', '2018-08-09 03:37:32');
+INSERT INTO `system_mail_templates` VALUES ('4', 'rainlab.user::mail.welcome', null, 'User confirmed their account', null, null, '1', '0', '2018-08-09 03:37:32', '2018-08-09 03:37:32');
+INSERT INTO `system_mail_templates` VALUES ('5', 'rainlab.user::mail.restore', null, 'User requests a password reset', null, null, '1', '0', '2018-08-09 03:37:32', '2018-08-09 03:37:32');
+INSERT INTO `system_mail_templates` VALUES ('6', 'rainlab.user::mail.new_user', null, 'Notify admins of a new sign up', null, null, '2', '0', '2018-08-09 03:37:32', '2018-08-09 03:37:32');
+INSERT INTO `system_mail_templates` VALUES ('7', 'rainlab.user::mail.reactivate', null, 'User has reactivated their account', null, null, '1', '0', '2018-08-09 03:37:32', '2018-08-09 03:37:32');
+INSERT INTO `system_mail_templates` VALUES ('8', 'rainlab.user::mail.invite', null, 'Invite a new user to the website', null, null, '1', '0', '2018-08-09 03:37:32', '2018-08-09 03:37:32');
+INSERT INTO `system_mail_templates` VALUES ('9', 'indikator.news::mail.email_en', null, null, null, null, '1', '0', '2018-08-09 03:37:32', '2018-08-09 03:37:32');
+INSERT INTO `system_mail_templates` VALUES ('10', 'indikator.news::mail.email_hu', null, null, null, null, '1', '0', '2018-08-09 03:37:32', '2018-08-09 03:37:32');
 
 -- ----------------------------
 -- Table structure for `system_parameters`
@@ -924,7 +1417,7 @@ CREATE TABLE `system_parameters` (
 INSERT INTO `system_parameters` VALUES ('1', 'system', 'update', 'count', '0');
 INSERT INTO `system_parameters` VALUES ('2', 'system', 'core', 'hash', '\"d4a4e1f641e333ff5c26037f86cfe619\"');
 INSERT INTO `system_parameters` VALUES ('3', 'system', 'core', 'build', '\"437\"');
-INSERT INTO `system_parameters` VALUES ('4', 'system', 'update', 'retry', '1533717872');
+INSERT INTO `system_parameters` VALUES ('4', 'system', 'update', 'retry', '1533886159');
 INSERT INTO `system_parameters` VALUES ('5', 'system', 'theme', 'history', '{\"Responsiv.Clean\":\"responsiv-clean\"}');
 
 -- ----------------------------
@@ -941,7 +1434,7 @@ CREATE TABLE `system_plugin_history` (
   PRIMARY KEY (`id`),
   KEY `system_plugin_history_code_index` (`code`),
   KEY `system_plugin_history_type_index` (`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=306 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=673 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of system_plugin_history
@@ -1012,32 +1505,6 @@ INSERT INTO `system_plugin_history` VALUES ('63', 'Lovata.Toolbox', 'comment', '
 INSERT INTO `system_plugin_history` VALUES ('64', 'Lovata.Toolbox', 'comment', '1.12.0', 'Add PageHelper::getPageNameList() method.', '2018-08-07 02:57:44');
 INSERT INTO `system_plugin_history` VALUES ('65', 'Lovata.Toolbox', 'comment', '1.12.1', 'Update of vendor packages', '2018-08-07 02:57:44');
 INSERT INTO `system_plugin_history` VALUES ('66', 'Lovata.Toolbox', 'comment', '1.12.2', 'Update of php-pagination vendor packages', '2018-08-07 02:57:44');
-INSERT INTO `system_plugin_history` VALUES ('67', 'Lovata.Shopaholic', 'script', '1.0.0', 'create_table_categories.php', '2018-08-07 02:57:45');
-INSERT INTO `system_plugin_history` VALUES ('68', 'Lovata.Shopaholic', 'script', '1.0.0', 'create_table_products.php', '2018-08-07 02:57:45');
-INSERT INTO `system_plugin_history` VALUES ('69', 'Lovata.Shopaholic', 'script', '1.0.0', 'create_table_offers.php', '2018-08-07 02:57:46');
-INSERT INTO `system_plugin_history` VALUES ('70', 'Lovata.Shopaholic', 'script', '1.0.0', 'create_table_brands.php', '2018-08-07 02:57:47');
-INSERT INTO `system_plugin_history` VALUES ('71', 'Lovata.Shopaholic', 'comment', '1.0.0', 'Initialize plugin.', '2018-08-07 02:57:47');
-INSERT INTO `system_plugin_history` VALUES ('72', 'Lovata.Shopaholic', 'comment', '1.1.0', 'Add integration with \"Popularity for Shopaholic\" and \"Tags for Shopaholic\" plugins', '2018-08-07 02:57:47');
-INSERT INTO `system_plugin_history` VALUES ('73', 'Lovata.Shopaholic', 'comment', '1.2.0', 'preview_image, images fields in item classes returns \\System\\Models\\File class objects. Add integration with \"Reviews for Shopaholic\" plugin', '2018-08-07 02:57:47');
-INSERT INTO `system_plugin_history` VALUES ('74', 'Lovata.Shopaholic', 'comment', '1.2.1', 'Remove php short tags from offers/update.htm', '2018-08-07 02:57:47');
-INSERT INTO `system_plugin_history` VALUES ('75', 'Lovata.Shopaholic', 'comment', '1.2.2', 'Add additional cache cleaning after category reordering', '2018-08-07 02:57:47');
-INSERT INTO `system_plugin_history` VALUES ('76', 'Lovata.Shopaholic', 'comment', '1.2.3', 'Adding additional cache cleaning for the sorted list of brands, after the creation of a new brand. Requires Toolbox plugin version 1.3.0 and later.', '2018-08-07 02:57:47');
-INSERT INTO `system_plugin_history` VALUES ('77', 'Lovata.Shopaholic', 'comment', '1.3.0', 'Add menu types for integration with the StaticPage plugin. Add getPageUrl() method to the CategoryItem class. Requires Toolbox plugin version 1.4.0 and later. Thanks for contribution Alvaro Cánepa.', '2018-08-07 02:57:47');
-INSERT INTO `system_plugin_history` VALUES ('78', 'Lovata.Shopaholic', 'comment', '1.3.1', 'Fix: processing of the \"nesting\" flag for the menu type \"catalog\"', '2018-08-07 02:57:47');
-INSERT INTO `system_plugin_history` VALUES ('79', 'Lovata.Shopaholic', 'comment', '1.4.0', 'Replace code of product sorting by popularity and rating from Shopaholic to extension plugins. Add event \"shopaholic.sorting.get.list\" for custom sorting of products. Add integration with \"Related products for Shopaholic\" and \"Accessories for Shopaholic\" plugins', '2018-08-07 02:57:47');
-INSERT INTO `system_plugin_history` VALUES ('80', 'Lovata.Shopaholic', 'comment', '1.4.1', 'Update annotations for \"Reviews for Shopaholic\" plugin. Fix $dates array in Product model. Thanks for contribution Alexander Shapoval.', '2018-08-07 02:57:47');
-INSERT INTO `system_plugin_history` VALUES ('81', 'Lovata.Shopaholic', 'comment', '1.5.0', 'Add integration with \"Search for Shopaholic\",\"Sphinx for Shopaholic\" plugins', '2018-08-07 02:57:47');
-INSERT INTO `system_plugin_history` VALUES ('82', 'Lovata.Shopaholic', 'comment', '1.6.0', 'Add integration with \"Compare for Shopaholic\"', '2018-08-07 02:57:47');
-INSERT INTO `system_plugin_history` VALUES ('83', 'Lovata.Shopaholic', 'comment', '1.7.0', 'Added translation into French. Thanks for contribution philmarc.', '2018-08-07 02:57:47');
-INSERT INTO `system_plugin_history` VALUES ('84', 'Lovata.Shopaholic', 'comment', '1.8.0', 'Add integration with \"Viewed products for Shopaholic\" plugin', '2018-08-07 02:57:47');
-INSERT INTO `system_plugin_history` VALUES ('85', 'Lovata.Shopaholic', 'script', '1.9.0', 'seeder_price_format.php', '2018-08-07 02:57:48');
-INSERT INTO `system_plugin_history` VALUES ('86', 'Lovata.Shopaholic', 'comment', '1.9.0', 'Add PriceHelperTrait, TraitCached in models. Add active() method to CategoryCollection class. Move PriceHelper class from Shopaholic plugin to Toolbox plugin. Add new store classes. Refactoring *Store, *Item, *Collection classes. Requires Toolbox plugin version 1.10.0 and later.', '2018-08-07 02:57:48');
-INSERT INTO `system_plugin_history` VALUES ('87', 'Lovata.Shopaholic', 'script', '1.10.0', 'create_table_additional_categories.php', '2018-08-07 02:57:48');
-INSERT INTO `system_plugin_history` VALUES ('88', 'Lovata.Shopaholic', 'comment', '1.10.0', 'Adding relation between Product model and additional categories. Adding ability to get list of products by category ID list, by the parent category ID.', '2018-08-07 02:57:48');
-INSERT INTO `system_plugin_history` VALUES ('89', 'Lovata.Shopaholic', 'comment', '1.11.0', 'Adding getPageUrl() method to ProductItem, BrandItem classes.', '2018-08-07 02:57:48');
-INSERT INTO `system_plugin_history` VALUES ('90', 'Lovata.Shopaholic', 'comment', '1.11.1', 'Adding \"field.additional_category\" value to lang files. Fixed displaying \"additional categories\" field only for update/preview forms.', '2018-08-07 02:57:48');
-INSERT INTO `system_plugin_history` VALUES ('91', 'Lovata.Shopaholic', 'comment', '1.11.2', 'Fix work with *Store classes in *Handler classes.', '2018-08-07 02:57:48');
-INSERT INTO `system_plugin_history` VALUES ('92', 'Lovata.Shopaholic', 'comment', '1.11.3', 'Fix error in ProductCollection class, if product list by category is empty.', '2018-08-07 02:57:48');
 INSERT INTO `system_plugin_history` VALUES ('93', 'RainLab.Builder', 'comment', '1.0.1', 'Initialize plugin.', '2018-08-07 02:59:15');
 INSERT INTO `system_plugin_history` VALUES ('94', 'RainLab.Builder', 'comment', '1.0.2', 'Fixes the problem with selecting a plugin. Minor localization corrections. Configuration files in the list and form behaviors are now autocomplete.', '2018-08-07 02:59:16');
 INSERT INTO `system_plugin_history` VALUES ('95', 'RainLab.Builder', 'comment', '1.0.3', 'Improved handling of the enum data type.', '2018-08-07 02:59:16');
@@ -1060,12 +1527,6 @@ INSERT INTO `system_plugin_history` VALUES ('111', 'RainLab.Builder', 'comment',
 INSERT INTO `system_plugin_history` VALUES ('112', 'RainLab.Builder', 'comment', '1.0.20', 'Fixes a bug where form the builder could trigger the \"current.hasAttribute is not a function\" error.', '2018-08-07 02:59:17');
 INSERT INTO `system_plugin_history` VALUES ('113', 'RainLab.Builder', 'comment', '1.0.21', 'Back-end navigation sort order updated.', '2018-08-07 02:59:17');
 INSERT INTO `system_plugin_history` VALUES ('114', 'RainLab.Builder', 'comment', '1.0.22', 'Added scopeValue property to the RecordList component.', '2018-08-07 02:59:17');
-INSERT INTO `system_plugin_history` VALUES ('115', 'Li.News', 'comment', '1.0.1', 'Initialize plugin.', '2018-08-07 06:46:23');
-INSERT INTO `system_plugin_history` VALUES ('116', 'Li.News', 'script', '1.0.2', 'builder_table_create_li_news_content.php', '2018-08-07 06:48:49');
-INSERT INTO `system_plugin_history` VALUES ('117', 'Li.News', 'comment', '1.0.2', 'Created table li_news_content', '2018-08-07 06:48:50');
-INSERT INTO `system_plugin_history` VALUES ('118', 'Li.Test', 'comment', '1.0.1', 'Initialize plugin.', '2018-08-07 07:23:05');
-INSERT INTO `system_plugin_history` VALUES ('119', 'Li.Test', 'script', '1.0.2', 'builder_table_create_li_test_tests.php', '2018-08-07 07:23:42');
-INSERT INTO `system_plugin_history` VALUES ('120', 'Li.Test', 'comment', '1.0.2', 'Created table li_test_tests', '2018-08-07 07:23:42');
 INSERT INTO `system_plugin_history` VALUES ('121', 'ShahiemSeymor.Ckeditor', 'comment', '1.0.1', 'First version', '2018-08-07 07:35:46');
 INSERT INTO `system_plugin_history` VALUES ('122', 'ShahiemSeymor.Ckeditor', 'comment', '1.0.2', 'New skin (Thanks Flynsarmy)', '2018-08-07 07:35:46');
 INSERT INTO `system_plugin_history` VALUES ('123', 'ShahiemSeymor.Ckeditor', 'comment', '1.0.3', 'Add setting to automatically apply to cms (Thanks Flynsarmy)', '2018-08-07 07:35:46');
@@ -1247,10 +1708,247 @@ INSERT INTO `system_plugin_history` VALUES ('298', 'Indikator.News', 'script', '
 INSERT INTO `system_plugin_history` VALUES ('299', 'Indikator.News', 'script', '1.10.0', 'adding_gdpr_fields_for_subscribers.php', '2018-08-07 09:22:56');
 INSERT INTO `system_plugin_history` VALUES ('300', 'Indikator.News', 'comment', '1.10.0', 'Plugin is now GDPR conform.', '2018-08-07 09:22:56');
 INSERT INTO `system_plugin_history` VALUES ('301', 'Indikator.News', 'comment', '1.10.1', 'Improved the UI and widgets.', '2018-08-07 09:22:56');
-INSERT INTO `system_plugin_history` VALUES ('302', 'Li.Test', 'script', '1.0.3', 'builder_table_update_li_test_tests.php', '2018-08-08 07:22:54');
-INSERT INTO `system_plugin_history` VALUES ('303', 'Li.Test', 'comment', '1.0.3', 'Updated table li_test_tests', '2018-08-08 07:22:54');
-INSERT INTO `system_plugin_history` VALUES ('304', 'Li.Test', 'script', '1.0.4', 'builder_table_update_li_test_tests_2.php', '2018-08-08 07:23:25');
-INSERT INTO `system_plugin_history` VALUES ('305', 'Li.Test', 'comment', '1.0.4', 'Updated table li_test_tests', '2018-08-08 07:23:25');
+INSERT INTO `system_plugin_history` VALUES ('306', 'RainLab.User', 'script', '1.0.1', 'create_users_table.php', '2018-08-09 03:32:48');
+INSERT INTO `system_plugin_history` VALUES ('307', 'RainLab.User', 'script', '1.0.1', 'create_throttle_table.php', '2018-08-09 03:32:48');
+INSERT INTO `system_plugin_history` VALUES ('308', 'RainLab.User', 'comment', '1.0.1', 'Initialize plugin.', '2018-08-09 03:32:48');
+INSERT INTO `system_plugin_history` VALUES ('309', 'RainLab.User', 'comment', '1.0.2', 'Seed tables.', '2018-08-09 03:32:49');
+INSERT INTO `system_plugin_history` VALUES ('310', 'RainLab.User', 'comment', '1.0.3', 'Translated hard-coded text to language strings.', '2018-08-09 03:32:49');
+INSERT INTO `system_plugin_history` VALUES ('311', 'RainLab.User', 'comment', '1.0.4', 'Improvements to user-interface for Location manager.', '2018-08-09 03:32:49');
+INSERT INTO `system_plugin_history` VALUES ('312', 'RainLab.User', 'comment', '1.0.5', 'Added contact details for users.', '2018-08-09 03:32:49');
+INSERT INTO `system_plugin_history` VALUES ('313', 'RainLab.User', 'script', '1.0.6', 'create_mail_blockers_table.php', '2018-08-09 03:32:49');
+INSERT INTO `system_plugin_history` VALUES ('314', 'RainLab.User', 'comment', '1.0.6', 'Added Mail Blocker utility so users can block specific mail templates.', '2018-08-09 03:32:49');
+INSERT INTO `system_plugin_history` VALUES ('315', 'RainLab.User', 'comment', '1.0.7', 'Add back-end Settings page.', '2018-08-09 03:32:49');
+INSERT INTO `system_plugin_history` VALUES ('316', 'RainLab.User', 'comment', '1.0.8', 'Updated the Settings page.', '2018-08-09 03:32:49');
+INSERT INTO `system_plugin_history` VALUES ('317', 'RainLab.User', 'comment', '1.0.9', 'Adds new welcome mail message for users and administrators.', '2018-08-09 03:32:49');
+INSERT INTO `system_plugin_history` VALUES ('318', 'RainLab.User', 'comment', '1.0.10', 'Adds administrator-only activation mode.', '2018-08-09 03:32:49');
+INSERT INTO `system_plugin_history` VALUES ('319', 'RainLab.User', 'script', '1.0.11', 'users_add_login_column.php', '2018-08-09 03:32:50');
+INSERT INTO `system_plugin_history` VALUES ('320', 'RainLab.User', 'comment', '1.0.11', 'Users now have an optional login field that defaults to the email field.', '2018-08-09 03:32:50');
+INSERT INTO `system_plugin_history` VALUES ('321', 'RainLab.User', 'script', '1.0.12', 'users_rename_login_to_username.php', '2018-08-09 03:32:50');
+INSERT INTO `system_plugin_history` VALUES ('322', 'RainLab.User', 'comment', '1.0.12', 'Create a dedicated setting for choosing the login mode.', '2018-08-09 03:32:50');
+INSERT INTO `system_plugin_history` VALUES ('323', 'RainLab.User', 'comment', '1.0.13', 'Minor fix to the Account sign in logic.', '2018-08-09 03:32:50');
+INSERT INTO `system_plugin_history` VALUES ('324', 'RainLab.User', 'comment', '1.0.14', 'Minor improvements to the code.', '2018-08-09 03:32:50');
+INSERT INTO `system_plugin_history` VALUES ('325', 'RainLab.User', 'script', '1.0.15', 'users_add_surname.php', '2018-08-09 03:32:50');
+INSERT INTO `system_plugin_history` VALUES ('326', 'RainLab.User', 'comment', '1.0.15', 'Adds last name column to users table (surname).', '2018-08-09 03:32:50');
+INSERT INTO `system_plugin_history` VALUES ('327', 'RainLab.User', 'comment', '1.0.16', 'Require permissions for settings page too.', '2018-08-09 03:32:50');
+INSERT INTO `system_plugin_history` VALUES ('328', 'RainLab.User', 'comment', '1.1.0', '!!! Profile fields and Locations have been removed.', '2018-08-09 03:32:50');
+INSERT INTO `system_plugin_history` VALUES ('329', 'RainLab.User', 'script', '1.1.1', 'create_user_groups_table.php', '2018-08-09 03:32:51');
+INSERT INTO `system_plugin_history` VALUES ('330', 'RainLab.User', 'script', '1.1.1', 'seed_user_groups_table.php', '2018-08-09 03:32:51');
+INSERT INTO `system_plugin_history` VALUES ('331', 'RainLab.User', 'comment', '1.1.1', 'Users can now be added to groups.', '2018-08-09 03:32:51');
+INSERT INTO `system_plugin_history` VALUES ('332', 'RainLab.User', 'comment', '1.1.2', 'A raw URL can now be passed as the redirect property in the Account component.', '2018-08-09 03:32:51');
+INSERT INTO `system_plugin_history` VALUES ('333', 'RainLab.User', 'comment', '1.1.3', 'Adds a super user flag to the users table, reserved for future use.', '2018-08-09 03:32:51');
+INSERT INTO `system_plugin_history` VALUES ('334', 'RainLab.User', 'comment', '1.1.4', 'User list can be filtered by the group they belong to.', '2018-08-09 03:32:51');
+INSERT INTO `system_plugin_history` VALUES ('335', 'RainLab.User', 'comment', '1.1.5', 'Adds a new permission to hide the User settings menu item.', '2018-08-09 03:32:51');
+INSERT INTO `system_plugin_history` VALUES ('336', 'RainLab.User', 'script', '1.2.0', 'users_add_deleted_at.php', '2018-08-09 03:32:51');
+INSERT INTO `system_plugin_history` VALUES ('337', 'RainLab.User', 'comment', '1.2.0', 'Users can now deactivate their own accounts.', '2018-08-09 03:32:51');
+INSERT INTO `system_plugin_history` VALUES ('338', 'RainLab.User', 'comment', '1.2.1', 'New feature for checking if a user is recently active/online.', '2018-08-09 03:32:51');
+INSERT INTO `system_plugin_history` VALUES ('339', 'RainLab.User', 'comment', '1.2.2', 'Add bulk action button to user list.', '2018-08-09 03:32:51');
+INSERT INTO `system_plugin_history` VALUES ('340', 'RainLab.User', 'comment', '1.2.3', 'Included some descriptive paragraphs in the Reset Password component markup.', '2018-08-09 03:32:51');
+INSERT INTO `system_plugin_history` VALUES ('341', 'RainLab.User', 'comment', '1.2.4', 'Added a checkbox for blocking all mail sent to the user.', '2018-08-09 03:32:51');
+INSERT INTO `system_plugin_history` VALUES ('342', 'RainLab.User', 'script', '1.2.5', 'update_timestamp_nullable.php', '2018-08-09 03:32:51');
+INSERT INTO `system_plugin_history` VALUES ('343', 'RainLab.User', 'comment', '1.2.5', 'Database maintenance. Updated all timestamp columns to be nullable.', '2018-08-09 03:32:51');
+INSERT INTO `system_plugin_history` VALUES ('344', 'RainLab.User', 'script', '1.2.6', 'users_add_last_seen.php', '2018-08-09 03:32:52');
+INSERT INTO `system_plugin_history` VALUES ('345', 'RainLab.User', 'comment', '1.2.6', 'Add a dedicated last seen column for users.', '2018-08-09 03:32:52');
+INSERT INTO `system_plugin_history` VALUES ('346', 'RainLab.User', 'comment', '1.2.7', 'Minor fix to user timestamp attributes.', '2018-08-09 03:32:52');
+INSERT INTO `system_plugin_history` VALUES ('347', 'RainLab.User', 'comment', '1.2.8', 'Add date range filter to users list. Introduced a logout event.', '2018-08-09 03:32:52');
+INSERT INTO `system_plugin_history` VALUES ('348', 'RainLab.User', 'comment', '1.2.9', 'Add invitation mail for new accounts created in the back-end.', '2018-08-09 03:32:52');
+INSERT INTO `system_plugin_history` VALUES ('349', 'RainLab.User', 'script', '1.3.0', 'users_add_guest_flag.php', '2018-08-09 03:32:52');
+INSERT INTO `system_plugin_history` VALUES ('350', 'RainLab.User', 'script', '1.3.0', 'users_add_superuser_flag.php', '2018-08-09 03:32:52');
+INSERT INTO `system_plugin_history` VALUES ('351', 'RainLab.User', 'comment', '1.3.0', 'Introduced guest user accounts.', '2018-08-09 03:32:52');
+INSERT INTO `system_plugin_history` VALUES ('352', 'RainLab.User', 'comment', '1.3.1', 'User notification variables can now be extended.', '2018-08-09 03:32:52');
+INSERT INTO `system_plugin_history` VALUES ('353', 'RainLab.User', 'comment', '1.3.2', 'Minor fix to the Auth::register method.', '2018-08-09 03:32:52');
+INSERT INTO `system_plugin_history` VALUES ('354', 'RainLab.User', 'comment', '1.3.3', 'Allow prevention of concurrent user sessions via the user settings.', '2018-08-09 03:32:52');
+INSERT INTO `system_plugin_history` VALUES ('355', 'RainLab.User', 'comment', '1.3.4', 'Added force secure protocol property to the account component.', '2018-08-09 03:32:52');
+INSERT INTO `system_plugin_history` VALUES ('356', 'RainLab.User', 'comment', '1.4.0', '!!! The Notifications tab in User settings has been removed.', '2018-08-09 03:32:52');
+INSERT INTO `system_plugin_history` VALUES ('357', 'RainLab.User', 'comment', '1.4.1', 'Added support for user impersonation.', '2018-08-09 03:32:52');
+INSERT INTO `system_plugin_history` VALUES ('358', 'RainLab.User', 'comment', '1.4.2', 'Fixes security bug in Password Reset component.', '2018-08-09 03:32:52');
+INSERT INTO `system_plugin_history` VALUES ('359', 'RainLab.User', 'comment', '1.4.3', 'Fixes session handling for AJAX requests.', '2018-08-09 03:32:52');
+INSERT INTO `system_plugin_history` VALUES ('360', 'RainLab.User', 'comment', '1.4.4', 'Fixes bug where impersonation touches the last seen timestamp.', '2018-08-09 03:32:52');
+INSERT INTO `system_plugin_history` VALUES ('361', 'RainLab.User', 'comment', '1.4.5', 'Added token fallback process to Account / Reset Password components when parameter is missing.', '2018-08-09 03:32:52');
+INSERT INTO `system_plugin_history` VALUES ('362', 'RainLab.User', 'comment', '1.4.6', 'Fixes Auth::register method signature mismatch with core OctoberCMS Auth library', '2018-08-09 03:32:52');
+INSERT INTO `system_plugin_history` VALUES ('363', 'ShahiemSeymor.Maintenance', 'comment', '1.0.1', 'First version', '2018-08-09 03:35:04');
+INSERT INTO `system_plugin_history` VALUES ('364', 'ShahiemSeymor.Maintenance', 'comment', '1.0.2', 'Bug fixed (Route), Added form widget (Maintenance information), Added rules', '2018-08-09 03:35:04');
+INSERT INTO `system_plugin_history` VALUES ('365', 'ShahiemSeymor.Maintenance', 'comment', '1.0.3', 'Added formwidget (ckeditor and codeeditor) and backend changes.', '2018-08-09 03:35:04');
+INSERT INTO `system_plugin_history` VALUES ('366', 'ShahiemSeymor.Maintenance', 'comment', '1.0.4', 'Removed required ckeditor', '2018-08-09 03:35:05');
+INSERT INTO `system_plugin_history` VALUES ('367', 'ShahiemSeymor.Maintenance', 'comment', '1.0.5', 'Bug fixed (route problem), new colorpicker, Required asterisk', '2018-08-09 03:35:05');
+INSERT INTO `system_plugin_history` VALUES ('368', 'ShahiemSeymor.Maintenance', 'comment', '1.0.6', 'Removed require ckeditor', '2018-08-09 03:35:05');
+INSERT INTO `system_plugin_history` VALUES ('369', 'ShahiemSeymor.Maintenance', 'comment', '1.0.7', 'Added preview button, Bug fixes', '2018-08-09 03:35:05');
+INSERT INTO `system_plugin_history` VALUES ('370', 'ShahiemSeymor.Maintenance', 'comment', '1.0.8', 'Code cleanup, added title field', '2018-08-09 03:35:05');
+INSERT INTO `system_plugin_history` VALUES ('371', 'ShahiemSeymor.Maintenance', 'comment', '1.0.9', 'Code cleanup, Removed colorpicker formwidget, replace it with the default codepicker.Change the default content editor to richeditor', '2018-08-09 03:35:05');
+INSERT INTO `system_plugin_history` VALUES ('372', 'Alxy.SimpleMenu', 'comment', '1.0.1', 'First version of SimpleMenu', '2018-08-09 03:43:31');
+INSERT INTO `system_plugin_history` VALUES ('490', 'Clake.UserExtended', 'script', '1.0.1', 'users_groups_refactor.php', '2018-08-09 03:45:42');
+INSERT INTO `system_plugin_history` VALUES ('491', 'Clake.UserExtended', 'script', '1.0.1', 'seed_basic_user_groups.php', '2018-08-09 03:45:43');
+INSERT INTO `system_plugin_history` VALUES ('492', 'Clake.UserExtended', 'comment', '1.0.1', 'Seed in basic groups.', '2018-08-09 03:45:43');
+INSERT INTO `system_plugin_history` VALUES ('493', 'Clake.UserExtended', 'script', '1.0.2', 'create_friends_table.php', '2018-08-09 03:45:43');
+INSERT INTO `system_plugin_history` VALUES ('494', 'Clake.UserExtended', 'comment', '1.0.2', 'Create the table.', '2018-08-09 03:45:43');
+INSERT INTO `system_plugin_history` VALUES ('495', 'Clake.UserExtended', 'script', '1.0.3', 'friends_add_accepted.php', '2018-08-09 03:45:43');
+INSERT INTO `system_plugin_history` VALUES ('496', 'Clake.UserExtended', 'comment', '1.0.3', 'Add Accepted to Friends table.', '2018-08-09 03:45:43');
+INSERT INTO `system_plugin_history` VALUES ('497', 'Clake.UserExtended', 'comment', '1.0.4', 'Added user searching', '2018-08-09 03:45:43');
+INSERT INTO `system_plugin_history` VALUES ('498', 'Clake.UserExtended', 'script', '1.0.5', 'create_comments_table.php', '2018-08-09 03:45:43');
+INSERT INTO `system_plugin_history` VALUES ('499', 'Clake.UserExtended', 'comment', '1.0.5', 'Add Comments table', '2018-08-09 03:45:43');
+INSERT INTO `system_plugin_history` VALUES ('500', 'Clake.UserExtended', 'script', '1.0.6', 'comments_add_author.php', '2018-08-09 03:45:43');
+INSERT INTO `system_plugin_history` VALUES ('501', 'Clake.UserExtended', 'comment', '1.0.6', 'Added author to comments table', '2018-08-09 03:45:43');
+INSERT INTO `system_plugin_history` VALUES ('502', 'Clake.UserExtended', 'comment', '1.0.7', 'Added user profile pages', '2018-08-09 03:45:44');
+INSERT INTO `system_plugin_history` VALUES ('503', 'Clake.UserExtended', 'comment', '1.0.8', 'Added delete capabilities for comments and friends', '2018-08-09 03:45:44');
+INSERT INTO `system_plugin_history` VALUES ('504', 'Clake.UserExtended', 'comment', '1.0.9', 'Fixed \'Code Already In use\' bug', '2018-08-09 03:45:44');
+INSERT INTO `system_plugin_history` VALUES ('505', 'Clake.UserExtended', 'script', '1.0.10', 'user_groups_add_level.php', '2018-08-09 03:45:44');
+INSERT INTO `system_plugin_history` VALUES ('506', 'Clake.UserExtended', 'comment', '1.0.10', 'Added Heirarchal Level to User Groups', '2018-08-09 03:45:44');
+INSERT INTO `system_plugin_history` VALUES ('507', 'Clake.UserExtended', 'comment', '1.0.11', 'Updated User Group Seeder. You may wish to consider to rerun it.', '2018-08-09 03:45:44');
+INSERT INTO `system_plugin_history` VALUES ('508', 'Clake.UserExtended', 'script', '1.0.12', 'create_timezones_table.php', '2018-08-09 03:45:44');
+INSERT INTO `system_plugin_history` VALUES ('509', 'Clake.UserExtended', 'comment', '1.0.12', 'Added Timezone table', '2018-08-09 03:45:44');
+INSERT INTO `system_plugin_history` VALUES ('510', 'Clake.UserExtended', 'script', '1.0.13', 'user_add_timezone.php', '2018-08-09 03:45:44');
+INSERT INTO `system_plugin_history` VALUES ('511', 'Clake.UserExtended', 'comment', '1.0.13', 'Modified Users table to add a timezone_id column', '2018-08-09 03:45:44');
+INSERT INTO `system_plugin_history` VALUES ('512', 'Clake.UserExtended', 'script', '1.0.14', 'seed_time_zones.php', '2018-08-09 03:45:44');
+INSERT INTO `system_plugin_history` VALUES ('513', 'Clake.UserExtended', 'comment', '1.0.14', 'Seed timezones', '2018-08-09 03:45:44');
+INSERT INTO `system_plugin_history` VALUES ('514', 'Clake.UserExtended', 'script', '1.0.15', 'create_roles_table.php', '2018-08-09 03:45:45');
+INSERT INTO `system_plugin_history` VALUES ('515', 'Clake.UserExtended', 'comment', '1.0.15', 'Create Roles table', '2018-08-09 03:45:45');
+INSERT INTO `system_plugin_history` VALUES ('516', 'Clake.UserExtended', 'script', '1.0.16', 'Use Case 1; You own a blogging company with a group called \'writers\'. The writers group can have roles \'Senior Writer\', \'Junior Writer\', and \'Writer Editor\'', '2018-08-09 03:45:45');
+INSERT INTO `system_plugin_history` VALUES ('517', 'Clake.UserExtended', 'comment', '1.0.16', 'Added Roles as a linear heirarchy under a group.', '2018-08-09 03:45:45');
+INSERT INTO `system_plugin_history` VALUES ('518', 'Clake.UserExtended', 'script', '1.0.17', 'user_groups_add_role.php', '2018-08-09 03:45:45');
+INSERT INTO `system_plugin_history` VALUES ('519', 'Clake.UserExtended', 'comment', '1.0.17', 'Adds role to the Users Groups table', '2018-08-09 03:45:45');
+INSERT INTO `system_plugin_history` VALUES ('520', 'Clake.UserExtended', 'comment', '1.0.18', 'Removes existing primary keys from Users Groups model. Removed script as it was breaking.', '2018-08-09 03:45:45');
+INSERT INTO `system_plugin_history` VALUES ('521', 'Clake.UserExtended', 'comment', '1.0.19', 'Adds a primary id key to the users_groups model. Removed script as it was breaking.', '2018-08-09 03:45:45');
+INSERT INTO `system_plugin_history` VALUES ('522', 'Clake.UserExtended', 'comment', '1.0.20', 'Added a controller for Roles. Check the \'User\' tab in the backend.', '2018-08-09 03:45:45');
+INSERT INTO `system_plugin_history` VALUES ('523', 'Clake.UserExtended', 'comment', '1.0.21', 'Added the Timezonable trait. Useful for automatically converting model fields to the logged in users timezone.', '2018-08-09 03:45:45');
+INSERT INTO `system_plugin_history` VALUES ('524', 'Clake.UserExtended', 'comment', '1.0.22', 'Initial release of the Role Manager in the backend.', '2018-08-09 03:45:45');
+INSERT INTO `system_plugin_history` VALUES ('525', 'Clake.UserExtended', 'script', '1.0.23', 'user_groups_change_level_to_sort_order.php', '2018-08-09 03:45:45');
+INSERT INTO `system_plugin_history` VALUES ('526', 'Clake.UserExtended', 'comment', '1.0.23', 'Bug Fixes', '2018-08-09 03:45:45');
+INSERT INTO `system_plugin_history` VALUES ('527', 'Clake.UserExtended', 'comment', '1.0.24', 'Fixed data structures bug', '2018-08-09 03:45:45');
+INSERT INTO `system_plugin_history` VALUES ('528', 'Clake.UserExtended', 'script', '1.0.25', 'user_add_settings.php', '2018-08-09 03:45:45');
+INSERT INTO `system_plugin_history` VALUES ('529', 'Clake.UserExtended', 'comment', '1.0.25', 'Add user settings', '2018-08-09 03:45:45');
+INSERT INTO `system_plugin_history` VALUES ('530', 'Clake.UserExtended', 'comment', '1.1.00', 'User Extended Beta release. Check your project as many things are now Deprecated and rewritten.', '2018-08-09 03:45:46');
+INSERT INTO `system_plugin_history` VALUES ('531', 'Clake.UserExtended', 'comment', '1.1.01', 'Creating role bug fix', '2018-08-09 03:45:46');
+INSERT INTO `system_plugin_history` VALUES ('532', 'Clake.UserExtended', 'comment', '1.1.02', 'Fixed non-property error', '2018-08-09 03:45:46');
+INSERT INTO `system_plugin_history` VALUES ('533', 'Clake.UserExtended', 'comment', '1.1.03', 'Fixed undefined offset error', '2018-08-09 03:45:46');
+INSERT INTO `system_plugin_history` VALUES ('534', 'Clake.UserExtended', 'comment', '2.0.00', 'User Extended Core Stable Release. Check your project as many things are now Deprecated and rewritten and will be removed in version 3.0.00', '2018-08-09 03:45:46');
+INSERT INTO `system_plugin_history` VALUES ('535', 'Clake.UserExtended', 'script', '2.0.01', 'create_fields_table.php', '2018-08-09 03:45:46');
+INSERT INTO `system_plugin_history` VALUES ('536', 'Clake.UserExtended', 'comment', '2.0.01', 'Began work on 2.1.00 and creating fields table', '2018-08-09 03:45:46');
+INSERT INTO `system_plugin_history` VALUES ('537', 'Clake.UserExtended', 'script', '2.0.02', 'friends_add_relation.php', '2018-08-09 03:45:46');
+INSERT INTO `system_plugin_history` VALUES ('538', 'Clake.UserExtended', 'comment', '2.0.02', 'Adding relation column to the Friends model. This is being shipped now in preparation of 2.2.00', '2018-08-09 03:45:46');
+INSERT INTO `system_plugin_history` VALUES ('539', 'Clake.UserExtended', 'comment', '2.0.03', 'Implemented Fields Manager', '2018-08-09 03:45:46');
+INSERT INTO `system_plugin_history` VALUES ('540', 'Clake.UserExtended', 'script', '2.0.04', 'create_routes_table.php', '2018-08-09 03:45:47');
+INSERT INTO `system_plugin_history` VALUES ('541', 'Clake.UserExtended', 'comment', '2.0.04', 'Created Routes table. This is being shipped now in preparation of 2.2.00', '2018-08-09 03:45:47');
+INSERT INTO `system_plugin_history` VALUES ('542', 'Clake.UserExtended', 'script', '2.0.05', 'create_route_restriction_table.php', '2018-08-09 03:45:47');
+INSERT INTO `system_plugin_history` VALUES ('543', 'Clake.UserExtended', 'comment', '2.0.05', 'Created Route Restriction Table. This is being shipped now in preparation of 2.2.00', '2018-08-09 03:45:47');
+INSERT INTO `system_plugin_history` VALUES ('544', 'Clake.UserExtended', 'comment', '2.0.06', 'Completed RoleManager refactor and added drag&drop and pagination', '2018-08-09 03:45:47');
+INSERT INTO `system_plugin_history` VALUES ('545', 'Clake.UserExtended', 'script', '2.0.07', 'seed_fields.php', '2018-08-09 03:45:47');
+INSERT INTO `system_plugin_history` VALUES ('546', 'Clake.UserExtended', 'comment', '2.0.07', 'Added nicknames. This is being shipped now in preparation of 2.2.00', '2018-08-09 03:45:47');
+INSERT INTO `system_plugin_history` VALUES ('547', 'Clake.UserExtended', 'script', '2.0.08', 'create_integrated_users.php', '2018-08-09 03:45:47');
+INSERT INTO `system_plugin_history` VALUES ('548', 'Clake.UserExtended', 'comment', '2.0.08', 'Added integrated users. This is being shipped in preparation for 2.4.00 and 2.5.00', '2018-08-09 03:45:47');
+INSERT INTO `system_plugin_history` VALUES ('549', 'Clake.UserExtended', 'comment', '2.1.00', 'User Extended Core v2.1.00 Release. Deprecated components and functions have been removed.', '2018-08-09 03:45:47');
+INSERT INTO `system_plugin_history` VALUES ('550', 'Clake.UserExtended', 'comment', '2.1.01', 'Fixed a bug which was preventing autofilling of custom fields. Oops.', '2018-08-09 03:45:47');
+INSERT INTO `system_plugin_history` VALUES ('551', 'Clake.UserExtended', 'comment', '2.1.02', 'Fixed a bug which was causing issues with the Field Manager', '2018-08-09 03:45:47');
+INSERT INTO `system_plugin_history` VALUES ('552', 'Clake.UserExtended', 'comment', '2.1.03', 'Fixed a JS bug with UE not defined and interact not defined', '2018-08-09 03:45:47');
+INSERT INTO `system_plugin_history` VALUES ('553', 'Clake.UserExtended', 'script', '2.1.04', 'route_restriction_add_deletes_attempts.php', '2018-08-09 03:45:48');
+INSERT INTO `system_plugin_history` VALUES ('554', 'Clake.UserExtended', 'comment', '2.1.04', 'Tweaked route restriction table', '2018-08-09 03:45:48');
+INSERT INTO `system_plugin_history` VALUES ('555', 'Clake.UserExtended', 'script', '2.1.05', 'routes_switch_type.php', '2018-08-09 03:45:49');
+INSERT INTO `system_plugin_history` VALUES ('556', 'Clake.UserExtended', 'comment', '2.1.05', 'Removed type from routes and replaced it with an enabled flag', '2018-08-09 03:45:49');
+INSERT INTO `system_plugin_history` VALUES ('557', 'Clake.UserExtended', 'script', '2.1.06', 'route_restriction_add_flags.php', '2018-08-09 03:45:50');
+INSERT INTO `system_plugin_history` VALUES ('558', 'Clake.UserExtended', 'comment', '2.1.06', 'Added additional fields for route resitrctions', '2018-08-09 03:45:50');
+INSERT INTO `system_plugin_history` VALUES ('559', 'Clake.UserExtended', 'script', '2.1.07', 'create_routes_pivot_table.php', '2018-08-09 03:45:51');
+INSERT INTO `system_plugin_history` VALUES ('560', 'Clake.UserExtended', 'comment', '2.1.07', 'Added a pivot table for route restrictions', '2018-08-09 03:45:51');
+INSERT INTO `system_plugin_history` VALUES ('561', 'Clake.UserExtended', 'script', '2.1.08', 'routes_add_description_and_child.php', '2018-08-09 03:45:51');
+INSERT INTO `system_plugin_history` VALUES ('562', 'Clake.UserExtended', 'comment', '2.1.08', 'Added descriptions and cascading to children for route restricitons', '2018-08-09 03:45:51');
+INSERT INTO `system_plugin_history` VALUES ('563', 'Clake.UserExtended', 'script', '2.1.09', 'users_groups_add_timestamps.php', '2018-08-09 03:45:51');
+INSERT INTO `system_plugin_history` VALUES ('564', 'Clake.UserExtended', 'comment', '2.1.09', 'Added created_at, deleted_at, updated_at to UsersGroups', '2018-08-09 03:45:51');
+INSERT INTO `system_plugin_history` VALUES ('565', 'Clake.UserExtended', 'script', '2.1.10', 'seed_account_settings.php', '2018-08-09 03:45:51');
+INSERT INTO `system_plugin_history` VALUES ('566', 'Clake.UserExtended', 'comment', '2.1.10', 'Added some core settings fields for handing bans and suspensions', '2018-08-09 03:45:51');
+INSERT INTO `system_plugin_history` VALUES ('567', 'Clake.UserExtended', 'script', '2.1.11', 'create_modules_table.php', '2018-08-09 03:45:51');
+INSERT INTO `system_plugin_history` VALUES ('568', 'Clake.UserExtended', 'comment', '2.1.11', 'Started work on the Module Manager. This is being shipped in preparation of 2.3.00', '2018-08-09 03:45:51');
+INSERT INTO `system_plugin_history` VALUES ('569', 'Clake.UserExtended', 'comment', '2.2.00', 'User Extended Core v2.2.00 Release. \'The Backend Update\' adds Route Restrictions, Friend management, comment management, timezone management, and improved field management.', '2018-08-09 03:45:51');
+INSERT INTO `system_plugin_history` VALUES ('572', 'NSRosenqvist.TwigColorTools', 'comment', '1.0.0', 'First version', '2018-08-09 03:51:56');
+INSERT INTO `system_plugin_history` VALUES ('573', 'NSRosenqvist.TwigColorTools', 'comment', '1.0.1', 'Fixed an issue with double opening brackets on rgb and rgba color codes', '2018-08-09 03:51:57');
+INSERT INTO `system_plugin_history` VALUES ('574', 'NSRosenqvist.TwigColorTools', 'comment', '1.0.2', 'Attempted fix for an undefined offset error', '2018-08-09 03:51:57');
+INSERT INTO `system_plugin_history` VALUES ('576', 'Hambern.Company', 'script', '1.0.1', 'create_employees_table.php', '2018-08-09 03:57:56');
+INSERT INTO `system_plugin_history` VALUES ('577', 'Hambern.Company', 'script', '1.0.1', 'create_projects_table.php', '2018-08-09 03:57:56');
+INSERT INTO `system_plugin_history` VALUES ('578', 'Hambern.Company', 'script', '1.0.1', 'create_roles_table.php', '2018-08-09 03:57:56');
+INSERT INTO `system_plugin_history` VALUES ('579', 'Hambern.Company', 'script', '1.0.1', 'create_services_table.php', '2018-08-09 03:57:56');
+INSERT INTO `system_plugin_history` VALUES ('580', 'Hambern.Company', 'script', '1.0.1', 'create_pivots_table.php', '2018-08-09 03:57:57');
+INSERT INTO `system_plugin_history` VALUES ('581', 'Hambern.Company', 'comment', '1.0.1', 'First version of Company', '2018-08-09 03:57:57');
+INSERT INTO `system_plugin_history` VALUES ('582', 'Hambern.Company', 'script', '1.0.2', 'create_galleries_table.php', '2018-08-09 03:57:57');
+INSERT INTO `system_plugin_history` VALUES ('583', 'Hambern.Company', 'comment', '1.0.2', 'Added galleries', '2018-08-09 03:57:57');
+INSERT INTO `system_plugin_history` VALUES ('584', 'Hambern.Company', 'script', '1.0.3', 'create_testimonials_table.php', '2018-08-09 03:57:57');
+INSERT INTO `system_plugin_history` VALUES ('585', 'Hambern.Company', 'comment', '1.0.3', 'Added testimonials', '2018-08-09 03:57:57');
+INSERT INTO `system_plugin_history` VALUES ('586', 'Hambern.Company', 'comment', '1.0.4', 'Changed timestamps() to nullableTimestamps() in migrations', '2018-08-09 03:57:57');
+INSERT INTO `system_plugin_history` VALUES ('587', 'Hambern.Company', 'comment', '1.0.5', 'Much better permission integration', '2018-08-09 03:57:57');
+INSERT INTO `system_plugin_history` VALUES ('588', 'Hambern.Company', 'comment', '1.0.6', 'Important bug fix to permission integration', '2018-08-09 03:57:58');
+INSERT INTO `system_plugin_history` VALUES ('589', 'Hambern.Company', 'comment', '1.0.7', 'Another bug fix to permission integration. Still learning this...', '2018-08-09 03:57:58');
+INSERT INTO `system_plugin_history` VALUES ('590', 'Hambern.Company', 'comment', '1.0.8', 'Facepalm update ;)', '2018-08-09 03:57:58');
+INSERT INTO `system_plugin_history` VALUES ('591', 'Hambern.Company', 'comment', '1.1.0', 'Perfected permissions', '2018-08-09 03:57:58');
+INSERT INTO `system_plugin_history` VALUES ('592', 'Hambern.Company', 'comment', '1.1.1', 'Implements some support of the translate plugin', '2018-08-09 03:57:58');
+INSERT INTO `system_plugin_history` VALUES ('593', 'Hambern.Company', 'comment', '1.1.2', 'Improved services tools', '2018-08-09 03:57:58');
+INSERT INTO `system_plugin_history` VALUES ('594', 'Hambern.Company', 'comment', '1.1.3', 'Further improved services tools', '2018-08-09 03:57:58');
+INSERT INTO `system_plugin_history` VALUES ('595', 'Hambern.Company', 'script', '1.1.4', 'create_links_table.php', '2018-08-09 03:57:58');
+INSERT INTO `system_plugin_history` VALUES ('596', 'Hambern.Company', 'comment', '1.1.4', 'Added links tool', '2018-08-09 03:57:58');
+INSERT INTO `system_plugin_history` VALUES ('597', 'Hambern.Company', 'comment', '1.1.5', 'Minor bug fixes', '2018-08-09 03:57:58');
+INSERT INTO `system_plugin_history` VALUES ('598', 'Hambern.Company', 'comment', '1.1.6', 'Settings now also translatable', '2018-08-09 03:57:58');
+INSERT INTO `system_plugin_history` VALUES ('599', 'Hambern.Company', 'comment', '1.1.7', 'Employee bug fixed', '2018-08-09 03:57:58');
+INSERT INTO `system_plugin_history` VALUES ('600', 'Hambern.Company', 'comment', '1.1.8', 'Added role filter to Employee component', '2018-08-09 03:57:58');
+INSERT INTO `system_plugin_history` VALUES ('601', 'Hambern.Company', 'comment', '1.1.9', 'Added role component', '2018-08-09 03:57:58');
+INSERT INTO `system_plugin_history` VALUES ('602', 'Hambern.Company', 'script', '1.1.10', 'change_testimonials_table_20160201.php', '2018-08-09 03:57:59');
+INSERT INTO `system_plugin_history` VALUES ('603', 'Hambern.Company', 'comment', '1.1.10', 'Change string to text on Testimonial content', '2018-08-09 03:57:59');
+INSERT INTO `system_plugin_history` VALUES ('604', 'Hambern.Company', 'comment', '1.1.11', 'Changed field layout for better responsiveness and added markdown for role descriptions', '2018-08-09 03:57:59');
+INSERT INTO `system_plugin_history` VALUES ('605', 'Hambern.Company', 'script', '1.1.12', 'change_roles_table_20160202.php', '2018-08-09 03:57:59');
+INSERT INTO `system_plugin_history` VALUES ('606', 'Hambern.Company', 'comment', '1.1.12', '...and applying the necessary database-changes', '2018-08-09 03:57:59');
+INSERT INTO `system_plugin_history` VALUES ('607', 'Hambern.Company', 'comment', '1.2.0', 'Added pagination options to the components', '2018-08-09 03:57:59');
+INSERT INTO `system_plugin_history` VALUES ('608', 'Hambern.Company', 'comment', '1.2.1', 'Cleaned up the models and corrected a small bug in the service model', '2018-08-09 03:57:59');
+INSERT INTO `system_plugin_history` VALUES ('609', 'Hambern.Company', 'comment', '1.2.2', 'Another small update to the service component', '2018-08-09 03:57:59');
+INSERT INTO `system_plugin_history` VALUES ('610', 'Hambern.Company', 'comment', '1.2.3', 'Rearranging components to be able to show several of them at once on the same page', '2018-08-09 03:57:59');
+INSERT INTO `system_plugin_history` VALUES ('611', 'Hambern.Company', 'comment', '1.2.4', 'Bug fix and a lot cleaner components', '2018-08-09 03:58:00');
+INSERT INTO `system_plugin_history` VALUES ('612', 'Hambern.Company', 'comment', '1.2.5', 'Bug fix in Links component', '2018-08-09 03:58:00');
+INSERT INTO `system_plugin_history` VALUES ('613', 'Hambern.Company', 'comment', '1.2.6', 'Thanks to Jan Vince Company now comes in a Czech translation as well', '2018-08-09 03:58:00');
+INSERT INTO `system_plugin_history` VALUES ('614', 'Hambern.Company', 'comment', '1.2.7', 'Contacts options updated to suit SQL lite as well (thanx Jan Vince)', '2018-08-09 03:58:00');
+INSERT INTO `system_plugin_history` VALUES ('615', 'Hambern.Company', 'comment', '1.2.8', 'Fixed bug on Company-form when there were no employees', '2018-08-09 03:58:00');
+INSERT INTO `system_plugin_history` VALUES ('616', 'Hambern.Company', 'script', '1.2.9', 'change_employees_table_20160816.php', '2018-08-09 03:58:00');
+INSERT INTO `system_plugin_history` VALUES ('617', 'Hambern.Company', 'comment', '1.2.9', 'Add social media information', '2018-08-09 03:58:00');
+INSERT INTO `system_plugin_history` VALUES ('618', 'Hambern.Company', 'script', '1.2.10', 'change_employees_table_20160831.php', '2018-08-09 03:58:00');
+INSERT INTO `system_plugin_history` VALUES ('619', 'Hambern.Company', 'comment', '1.2.10', 'Add social media bug fix', '2018-08-09 03:58:00');
+INSERT INTO `system_plugin_history` VALUES ('620', 'Hambern.Company', 'comment', '1.2.11', 'Added social media prompt (thanx Jan Vince)', '2018-08-09 03:58:00');
+INSERT INTO `system_plugin_history` VALUES ('621', 'Hambern.Company', 'comment', '1.2.12', 'Added company email, phone and address', '2018-08-09 03:58:00');
+INSERT INTO `system_plugin_history` VALUES ('622', 'Hambern.Company', 'comment', '1.2.13', 'Updated Czech language file', '2018-08-09 03:58:00');
+INSERT INTO `system_plugin_history` VALUES ('623', 'Hambern.Company', 'comment', '1.2.14', 'Fixed a really small typo', '2018-08-09 03:58:00');
+INSERT INTO `system_plugin_history` VALUES ('624', 'Hambern.Company', 'comment', '1.2.15', 'Dutch translations added', '2018-08-09 03:58:00');
+INSERT INTO `system_plugin_history` VALUES ('625', 'Hambern.Company', 'script', '1.3.0', 'create_tags_table.php', '2018-08-09 03:58:00');
+INSERT INTO `system_plugin_history` VALUES ('626', 'Hambern.Company', 'script', '1.3.0', 'change_pivots_table_20160918.php', '2018-08-09 03:58:01');
+INSERT INTO `system_plugin_history` VALUES ('627', 'Hambern.Company', 'comment', '1.3.0', 'Added tags', '2018-08-09 03:58:01');
+INSERT INTO `system_plugin_history` VALUES ('628', 'Hambern.Company', 'comment', '1.3.1', 'Added filter options on the components', '2018-08-09 03:58:01');
+INSERT INTO `system_plugin_history` VALUES ('629', 'Hambern.Company', 'comment', '1.3.2', 'Added social media to company', '2018-08-09 03:58:01');
+INSERT INTO `system_plugin_history` VALUES ('630', 'Hambern.Company', 'comment', '1.3.3', '!!! This changes the logo-field in company to mediafinder. You will have to re-upload it', '2018-08-09 03:58:01');
+INSERT INTO `system_plugin_history` VALUES ('631', 'Hambern.Company', 'comment', '1.3.4', 'Added default dates on published_at and born_at', '2018-08-09 03:58:01');
+INSERT INTO `system_plugin_history` VALUES ('632', 'Hambern.Company', 'comment', '1.3.5', '!!! Due to a bug the logo-field is now once again a fileupload. Sorry for this.', '2018-08-09 03:58:01');
+INSERT INTO `system_plugin_history` VALUES ('633', 'Hambern.Company', 'comment', '1.3.6', 'Updated the Czech language file. Thanks Jan Vince!', '2018-08-09 03:58:01');
+INSERT INTO `system_plugin_history` VALUES ('634', 'Hambern.Company', 'comment', '1.3.7', 'Added the Portuguese language file. Thanks Ronaldo Ribeiro de Sousa!', '2018-08-09 03:58:01');
+INSERT INTO `system_plugin_history` VALUES ('635', 'Hambern.Company', 'script', '1.3.8', 'builder_table_update_hambern_company_services.php', '2018-08-09 03:58:01');
+INSERT INTO `system_plugin_history` VALUES ('636', 'Hambern.Company', 'comment', '1.3.8', 'Adding link to services', '2018-08-09 03:58:01');
+INSERT INTO `system_plugin_history` VALUES ('637', 'Hambern.Company', 'script', '1.3.9', 'German language support', '2018-08-09 03:58:01');
+INSERT INTO `system_plugin_history` VALUES ('638', 'Hambern.Company', 'script', '1.3.9', 'Adding custom links to services', '2018-08-09 03:58:01');
+INSERT INTO `system_plugin_history` VALUES ('639', 'Hambern.Company', 'comment', '1.3.9', 'builder_table_update_hambern_company_services.php', '2018-08-09 03:58:01');
+INSERT INTO `system_plugin_history` VALUES ('640', 'Hambern.Company', 'script', '1.4.1', 'builder_table_update_hambern_company_tags.php', '2018-08-09 03:58:01');
+INSERT INTO `system_plugin_history` VALUES ('641', 'Hambern.Company', 'comment', '1.4.1', 'Slug attribute hambern_company_tags', '2018-08-09 03:58:01');
+INSERT INTO `system_plugin_history` VALUES ('642', 'Hambern.Company', 'script', '1.4.2', 'builder_table_update_hambern_company_projects.php', '2018-08-09 03:58:02');
+INSERT INTO `system_plugin_history` VALUES ('643', 'Hambern.Company', 'comment', '1.4.2', 'Slug attribute hambern_company_projects', '2018-08-09 03:58:02');
+INSERT INTO `system_plugin_history` VALUES ('644', 'Hambern.Company', 'script', '1.4.3', 'builder_table_update_hambern_company_services2.php', '2018-08-09 03:58:02');
+INSERT INTO `system_plugin_history` VALUES ('645', 'Hambern.Company', 'comment', '1.4.3', 'Slug attribute hambern_company_services', '2018-08-09 03:58:02');
+INSERT INTO `system_plugin_history` VALUES ('646', 'Hambern.Company', 'script', '1.4.4', 'builder_table_update_hambern_company_links.php', '2018-08-09 03:58:02');
+INSERT INTO `system_plugin_history` VALUES ('647', 'Hambern.Company', 'comment', '1.4.4', 'Slug attribute hambern_company_links', '2018-08-09 03:58:02');
+INSERT INTO `system_plugin_history` VALUES ('648', 'Hambern.Company', 'script', '1.4.5', 'builder_table_update_hambern_company_employees.php', '2018-08-09 03:58:02');
+INSERT INTO `system_plugin_history` VALUES ('649', 'Hambern.Company', 'comment', '1.4.5', 'Updated table hambern_company_employees', '2018-08-09 03:58:02');
+INSERT INTO `system_plugin_history` VALUES ('650', 'Hambern.Company', 'script', '1.4.6', 'builder_table_update_hambern_company_galleries.php', '2018-08-09 03:58:02');
+INSERT INTO `system_plugin_history` VALUES ('651', 'Hambern.Company', 'comment', '1.4.6', 'Updated table hambern_company_galleries', '2018-08-09 03:58:02');
+INSERT INTO `system_plugin_history` VALUES ('652', 'Hambern.Company', 'script', '1.4.7', 'builder_table_update_hambern_company_roles.php', '2018-08-09 03:58:02');
+INSERT INTO `system_plugin_history` VALUES ('653', 'Hambern.Company', 'comment', '1.4.7', 'Updated table hambern_company_roles', '2018-08-09 03:58:02');
+INSERT INTO `system_plugin_history` VALUES ('654', 'Hambern.Company', 'comment', '1.4.8', 'Slug attribute for pretty urls', '2018-08-09 03:58:02');
+INSERT INTO `system_plugin_history` VALUES ('655', 'Hambern.Company', 'comment', '1.4.9', 'Codebase PSR2 coding standard', '2018-08-09 03:58:03');
+INSERT INTO `system_plugin_history` VALUES ('656', 'Hambern.Company', 'comment', '1.5.0', 'October build 420 L5.5 LTS ready', '2018-08-09 03:58:03');
+INSERT INTO `system_plugin_history` VALUES ('657', 'Inetis.ListSwitch', 'comment', '1.0.1', 'First version of listSwitch', '2018-08-09 06:09:00');
+INSERT INTO `system_plugin_history` VALUES ('658', 'Inetis.ListSwitch', 'script', '1.0.2', 'Add Hungarian translation', '2018-08-09 06:09:00');
+INSERT INTO `system_plugin_history` VALUES ('659', 'Inetis.ListSwitch', 'comment', '1.0.2', 'Display correctly the column label', '2018-08-09 06:09:00');
+INSERT INTO `system_plugin_history` VALUES ('660', 'Lovata.Toolbox', 'comment', '1.13.0', 'Added type returned by methods in AbstractStore * classes', '2018-08-09 06:49:15');
+INSERT INTO `system_plugin_history` VALUES ('661', 'Lovata.Toolbox', 'comment', '1.14.0', 'Add Countable interface in ElementCollection class', '2018-08-09 06:49:15');
+INSERT INTO `system_plugin_history` VALUES ('668', 'iswtf.setinfo', 'comment', '1.0.1', 'Initialize plugin.', '2018-08-09 07:53:15');
+INSERT INTO `system_plugin_history` VALUES ('669', 'iswtf.setinfo', 'script', '1.0.2', 'builder_table_create_iswtf_setinfo_sinfos.php', '2018-08-09 07:53:58');
+INSERT INTO `system_plugin_history` VALUES ('670', 'iswtf.setinfo', 'comment', '1.0.2', 'Created table iswtf_setinfo_sinfos', '2018-08-09 07:53:58');
+INSERT INTO `system_plugin_history` VALUES ('671', 'iswtf.setinfo', 'script', '1.0.3', 'builder_table_update_iswtf_setinfo_sinfos.php', '2018-08-09 07:56:44');
+INSERT INTO `system_plugin_history` VALUES ('672', 'iswtf.setinfo', 'comment', '1.0.3', 'Updated table iswtf_setinfo_sinfos', '2018-08-09 07:56:44');
 
 -- ----------------------------
 -- Table structure for `system_plugin_versions`
@@ -1265,22 +1963,27 @@ CREATE TABLE `system_plugin_versions` (
   `is_frozen` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `system_plugin_versions_code_index` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of system_plugin_versions
 -- ----------------------------
 INSERT INTO `system_plugin_versions` VALUES ('1', 'October.Demo', '1.0.1', '2018-08-06 06:15:42', '0', '0');
 INSERT INTO `system_plugin_versions` VALUES ('2', 'RainLab.Blog', '1.2.19', '2018-08-06 07:54:23', '0', '0');
-INSERT INTO `system_plugin_versions` VALUES ('3', 'Lovata.Toolbox', '1.12.2', '2018-08-07 02:57:44', '0', '0');
-INSERT INTO `system_plugin_versions` VALUES ('4', 'Lovata.Shopaholic', '1.11.3', '2018-08-07 02:57:48', '0', '0');
+INSERT INTO `system_plugin_versions` VALUES ('3', 'Lovata.Toolbox', '1.14.0', '2018-08-09 06:49:15', '0', '0');
 INSERT INTO `system_plugin_versions` VALUES ('5', 'RainLab.Builder', '1.0.22', '2018-08-07 02:59:17', '0', '0');
-INSERT INTO `system_plugin_versions` VALUES ('6', 'Li.News', '1.0.2', '2018-08-07 06:48:50', '0', '0');
-INSERT INTO `system_plugin_versions` VALUES ('7', 'Li.Test', '1.0.4', '2018-08-08 07:23:25', '0', '0');
-INSERT INTO `system_plugin_versions` VALUES ('8', 'ShahiemSeymor.Ckeditor', '1.0.18', '2018-08-07 07:35:47', '0', '0');
-INSERT INTO `system_plugin_versions` VALUES ('9', 'AnandPatel.WysiwygEditors', '1.2.8', '2018-08-07 08:30:13', '0', '0');
+INSERT INTO `system_plugin_versions` VALUES ('8', 'ShahiemSeymor.Ckeditor', '1.0.18', '2018-08-07 07:35:47', '1', '0');
+INSERT INTO `system_plugin_versions` VALUES ('9', 'AnandPatel.WysiwygEditors', '1.2.8', '2018-08-07 08:30:13', '1', '0');
 INSERT INTO `system_plugin_versions` VALUES ('10', 'RainLab.Pages', '1.2.18', '2018-08-07 09:21:26', '0', '0');
 INSERT INTO `system_plugin_versions` VALUES ('11', 'Indikator.News', '1.10.1', '2018-08-07 09:22:56', '0', '0');
+INSERT INTO `system_plugin_versions` VALUES ('12', 'RainLab.User', '1.4.6', '2018-08-09 03:32:52', '0', '0');
+INSERT INTO `system_plugin_versions` VALUES ('13', 'ShahiemSeymor.Maintenance', '1.0.9', '2018-08-09 03:35:05', '0', '0');
+INSERT INTO `system_plugin_versions` VALUES ('14', 'Alxy.SimpleMenu', '1.0.1', '2018-08-09 03:43:31', '0', '0');
+INSERT INTO `system_plugin_versions` VALUES ('19', 'Clake.UserExtended', '2.2.00', '2018-08-09 03:45:51', '0', '0');
+INSERT INTO `system_plugin_versions` VALUES ('21', 'NSRosenqvist.TwigColorTools', '1.0.2', '2018-08-09 03:51:57', '0', '0');
+INSERT INTO `system_plugin_versions` VALUES ('23', 'Hambern.Company', '1.5.0', '2018-08-09 03:58:03', '0', '0');
+INSERT INTO `system_plugin_versions` VALUES ('24', 'Inetis.ListSwitch', '1.0.2', '2018-08-09 06:09:00', '0', '0');
+INSERT INTO `system_plugin_versions` VALUES ('27', 'iswtf.setinfo', '1.0.3', '2018-08-09 07:56:44', '0', '0');
 
 -- ----------------------------
 -- Table structure for `system_request_logs`
@@ -1336,13 +2039,120 @@ CREATE TABLE `system_settings` (
   `value` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `system_settings_item_index` (`item`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of system_settings
 -- ----------------------------
 INSERT INTO `system_settings` VALUES ('1', 'backend_brand_settings', '{\"app_name\":\"OctoberCMS\",\"app_tagline\":\"Getting back to basics\",\"primary_color\":\"#34495e\",\"secondary_color\":\"#e67e22\",\"accent_color\":\"#3498db\",\"menu_mode\":\"inline\",\"custom_css\":\"\"}');
 INSERT INTO `system_settings` VALUES ('2', 'lovata_toolbox_settings', '{\"decimals\":null,\"dec_point\":null,\"thousands_sep\":null}');
-INSERT INTO `system_settings` VALUES ('3', 'rainlab_builder_settings', '{\"author_name\":\"li\",\"author_namespace\":\"Li\"}');
+INSERT INTO `system_settings` VALUES ('3', 'rainlab_builder_settings', '{\"author_name\":\"iswtf\",\"author_namespace\":\"iswtf\"}');
 INSERT INTO `system_settings` VALUES ('4', 'anandpatel_wysiwygeditors_settings', '{\"editor\":\"ckeditor\",\"editor_width\":\"99%\",\"editor_height\":\"\",\"toolbar_tinymce\":\"undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media ocmediamanager\",\"toolbar_ckeditor\":\"[\'Undo\', \'Redo\'], [\'Cut\', \'Copy\', \'Paste\', \'PasteText\', \'PasteFromWord\'], [\'Format\', \'FontSize\'], [\'ShowBlocks\', \'SelectAll\', \'RemoveFormat\'], [\'Source\'], [\'Maximize\'], \'\\/\', [\'Bold\', \'Italic\', \'Underline\', \'Strike\'], [\'JustifyLeft\', \'JustifyCenter\', \'JustifyRight\', \'JustifyBlock\'], [\'BulletedList\', \'NumberedList\', \'Outdent\', \'Indent\'], [\'TextColor\', \'BGColor\'], [\'Link\', \'Unlink\', \'Anchor\'], [\'Table\', \'oembed\', \'SpecialChar\', \'OcMediaManager\']\",\"cms_page_as_wysiwyg\":\"0\",\"cms_content_as_wysiwyg\":\"0\",\"cms_partial_as_wysiwyg\":\"0\",\"cms_layout_as_wysiwyg\":\"0\",\"others_as_wysiwyg\":\"0\",\"blog_as_wysiwyg\":\"1\",\"static_page_as_wysiwyg\":\"0\",\"news_as_wysiwyg\":\"0\",\"test_as_wysiwyg\":\"1\"}');
 INSERT INTO `system_settings` VALUES ('5', 'system_log_settings', '{\"log_events\":\"0\",\"log_requests\":\"0\",\"log_theme\":\"0\"}');
+
+-- ----------------------------
+-- Table structure for `users`
+-- ----------------------------
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `activation_code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `persist_code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `reset_password_code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `permissions` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_activated` tinyint(1) NOT NULL DEFAULT 0,
+  `activated_at` timestamp NULL DEFAULT NULL,
+  `last_login` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `username` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT 'NULL',
+  `surname` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `last_seen` timestamp NULL DEFAULT NULL,
+  `is_guest` tinyint(1) NOT NULL DEFAULT 0,
+  `is_superuser` tinyint(1) NOT NULL DEFAULT 0,
+  `timezone_id` int(11) NOT NULL DEFAULT 1,
+  `settings` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`),
+  UNIQUE KEY `users_login_unique` (`username`),
+  KEY `users_activation_code_index` (`activation_code`),
+  KEY `users_reset_password_code_index` (`reset_password_code`),
+  KEY `users_login_index` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of users
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `users_groups`
+-- ----------------------------
+DROP TABLE IF EXISTS `users_groups`;
+CREATE TABLE `users_groups` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `user_group_id` int(10) unsigned NOT NULL,
+  `role_id` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of users_groups
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `user_groups`
+-- ----------------------------
+DROP TABLE IF EXISTS `user_groups`;
+CREATE TABLE `user_groups` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `sort_order` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `user_groups_code_index` (`code`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of user_groups
+-- ----------------------------
+INSERT INTO `user_groups` VALUES ('1', 'Admin', 'admin', 'Administrator group', '2018-08-09 03:45:43', '2018-08-09 03:45:43', '0');
+INSERT INTO `user_groups` VALUES ('2', 'Friend', 'friend', 'Generalized friend group.', '2018-08-09 03:45:43', '2018-08-09 03:45:43', '0');
+INSERT INTO `user_groups` VALUES ('3', 'Guest', 'guest', 'Generalized guest group', '2018-08-09 03:45:43', '2018-08-09 03:45:43', '0');
+INSERT INTO `user_groups` VALUES ('4', 'Tester', 'tester', 'Access bleeding edge features', '2018-08-09 03:45:43', '2018-08-09 03:45:43', '0');
+INSERT INTO `user_groups` VALUES ('5', 'Debugger', 'debugger', 'Debug text, buttons, and visuals appear on the pages', '2018-08-09 03:45:43', '2018-08-09 03:45:43', '0');
+INSERT INTO `user_groups` VALUES ('6', 'Developer', 'developer', 'Access to the dev tools and options', '2018-08-09 03:45:43', '2018-08-09 03:45:43', '0');
+INSERT INTO `user_groups` VALUES ('7', 'Banned', 'banned', 'Banned from viewing pages', '2018-08-09 03:45:43', '2018-08-09 03:45:43', '0');
+
+-- ----------------------------
+-- Table structure for `user_throttle`
+-- ----------------------------
+DROP TABLE IF EXISTS `user_throttle`;
+CREATE TABLE `user_throttle` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned DEFAULT NULL,
+  `ip_address` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `attempts` int(11) NOT NULL DEFAULT 0,
+  `last_attempt_at` timestamp NULL DEFAULT NULL,
+  `is_suspended` tinyint(1) NOT NULL DEFAULT 0,
+  `suspended_at` timestamp NULL DEFAULT NULL,
+  `is_banned` tinyint(1) NOT NULL DEFAULT 0,
+  `banned_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_throttle_user_id_index` (`user_id`),
+  KEY `user_throttle_ip_address_index` (`ip_address`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of user_throttle
+-- ----------------------------
