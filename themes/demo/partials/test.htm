@@ -10,20 +10,18 @@ snippetProperties[teste][options][] = "teste"
 useContent = 1
 default = 0
 
-[builderDetails]
-modelClass = "Li\Test\Models\Tests"
+[builderDetails builderDetails2]
+modelClass = "iswtf\setinfo\Models\Sinfo"
 identifierValue = "{{ id }}"
 modelKeyColumn = "id"
-displayColumn = "content"
+displayColumn = "company"
 notFoundMessage = "Record not found"
 ==
 而我却热污染{{ staticPage.content|raw }}{% component 'staticPage' %}
 
-{{id}}
-
-{% set record = builderDetails.record %}
-{% set displayColumn = builderDetails.displayColumn %}
-{% set notFoundMessage = builderDetails.notFoundMessage %}
+{% set record = builderDetails2.record %}
+{% set displayColumn = builderDetails2.displayColumn %}
+{% set notFoundMessage = builderDetails2.notFoundMessage %}
 
 {% if record %}
     {{ attribute(record, displayColumn) }}

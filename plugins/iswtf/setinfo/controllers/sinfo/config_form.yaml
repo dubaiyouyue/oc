@@ -1,0 +1,11 @@
+name: Sinfo
+modelClass: iswtf\setinfo\Models\Sinfo
+form: $/iswtf/setinfo/models/sinfo/fields.yaml
+defaultRedirect: iswtf/setinfo/sinfo
+create:
+    redirect: 'iswtf/setinfo/sinfo/update/:id'
+    redirectClose: iswtf/setinfo/sinfo
+update:
+    redirect: iswtf/setinfo/sinfo
+    redirectClose: iswtf/setinfo/sinfo
+preview: {  }

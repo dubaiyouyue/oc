@@ -1,0 +1,17 @@
+fields:
+    company:
+        label: 'iswtf.setinfo::lang.companyname'
+        span: auto
+        type: text
+    address:
+        label: 'iswtf.setinfo::lang.companyaddress'
+        span: auto
+        type: text
+    latitude:
+        label: 'iswtf.setinfo::lang.latitude'
+        span: auto
+        type: text
+    longitude:
+        label: 'iswtf.setinfo::lang.longitude'
+        span: auto
+        type: text

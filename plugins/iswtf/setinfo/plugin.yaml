@@ -1,0 +1,24 @@
+plugin:
+    name: 'iswtf.setinfo::lang.plugin.name'
+    description: 'iswtf.setinfo::lang.plugin.description'
+    author: iswtf
+    icon: oc-icon-copyright
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: 'iswtf.setinfo::lang.plugin.name'
+        url: iswtf/setinfo/sinfo
+        icon: icon-copyright
+        sideMenu:
+            side-menu-item2:
+                label: 编辑
+                url: iswtf/setinfo/sinfo/create/1
+                icon: icon-edit
+            side-menu-item3:
+                label: 信息
+                url: iswtf/setinfo/sinfo
+                icon: icon-info-circle
+            side-menu-item:
+                label: 地图
+                url: /
+                icon: icon-map-marker

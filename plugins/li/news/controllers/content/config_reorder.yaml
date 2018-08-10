@@ -1,5 +1,0 @@
-title: Content
-modelClass: Li\News\Models\Content
-nameFrom: ewrew
-toolbar:
-    buttons: reorder_toolbar
