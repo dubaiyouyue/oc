@@ -316,4 +316,7 @@
   'RainLab\\Builder\\Classes\\LanguageMixer' => 'plugins\\rainlab\\builder\\classes\\LanguageMixer.php',
   'iswtf\\setinfo\\Controllers\\sinfo' => 'plugins\\iswtf\\setinfo\\controllers\\sinfo.php',
   'iswtf\\setinfo\\Models\\Sinfo' => 'plugins\\iswtf\\setinfo\\models\\Sinfo.php',
+  'iswtf\\setinfo\\Controllers\\mapcoordinate' => 'plugins\\iswtf\\setinfo\\controllers\\mapcoordinate.php',
+  'iswtf\\setinfo\\Controllers\\mapview' => 'plugins\\iswtf\\setinfo\\controllers\\mapview.php',
+  'Iswtf\\Setinfo\\Models\\Sinfo' => 'plugins\\iswtf\\setinfo\\models\\Sinfo.php',
 );

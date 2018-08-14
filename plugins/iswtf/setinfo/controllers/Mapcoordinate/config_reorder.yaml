@@ -1,0 +1,4 @@
+title: Sinfo
+modelClass: iswtf\setinfo\Models\Sinfo
+toolbar:
+    buttons: reorder_toolbar

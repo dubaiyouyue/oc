@@ -8,4 +8,5 @@ create:
 update:
     redirect: iswtf/setinfo/sinfo
     redirectClose: iswtf/setinfo/sinfo
+    flashSave: 'iswtf.setinfo::lang.updateok'
 preview: {  }

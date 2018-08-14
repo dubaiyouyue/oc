@@ -14,3 +14,12 @@ columns:
     latitude:
         label: latitude
         type: text
+    tel:
+        label: tel
+        type: text
+    logo:
+        label: logo
+        type: text
+    deleted_at:
+        label: deleted_at
+        type: datetime

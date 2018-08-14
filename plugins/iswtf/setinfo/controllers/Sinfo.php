@@ -14,8 +14,13 @@ class Sinfo extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('iswtf.setinfo', 'main-menu-item');
+        BackendMenu::setContext('iswtf.setinfo', 'main-menu-item', 'side-menu-item2');
     }
+	
+	public function index(){
+		
+		$this->update(1);
+	}
 	
 	public function create(){
 		$this->update(1);

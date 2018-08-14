@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2018-08-10 10:45:47
+Date: 2018-08-14 09:42:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -1023,13 +1023,16 @@ CREATE TABLE `iswtf_setinfo_sinfos` (
   `address` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `longitude` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `latitude` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tel` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `logo` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of iswtf_setinfo_sinfos
 -- ----------------------------
-INSERT INTO `iswtf_setinfo_sinfos` VALUES ('1', '安全网', '南宁金外滩商务大厦10', '456', '123');
+INSERT INTO `iswtf_setinfo_sinfos` VALUES ('1', '安全网12而我认', '南宁金外滩商务大厦10', '22.821733', '108.327508', '13607875450', '/84570281.jpg', null);
 
 -- ----------------------------
 -- Table structure for `jobs`
@@ -1434,7 +1437,7 @@ CREATE TABLE `system_plugin_history` (
   PRIMARY KEY (`id`),
   KEY `system_plugin_history_code_index` (`code`),
   KEY `system_plugin_history_type_index` (`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=673 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=679 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of system_plugin_history
@@ -1949,6 +1952,12 @@ INSERT INTO `system_plugin_history` VALUES ('669', 'iswtf.setinfo', 'script', '1
 INSERT INTO `system_plugin_history` VALUES ('670', 'iswtf.setinfo', 'comment', '1.0.2', 'Created table iswtf_setinfo_sinfos', '2018-08-09 07:53:58');
 INSERT INTO `system_plugin_history` VALUES ('671', 'iswtf.setinfo', 'script', '1.0.3', 'builder_table_update_iswtf_setinfo_sinfos.php', '2018-08-09 07:56:44');
 INSERT INTO `system_plugin_history` VALUES ('672', 'iswtf.setinfo', 'comment', '1.0.3', 'Updated table iswtf_setinfo_sinfos', '2018-08-09 07:56:44');
+INSERT INTO `system_plugin_history` VALUES ('673', 'iswtf.setinfo', 'script', '1.0.4', 'builder_table_update_iswtf_setinfo_sinfos_2.php', '2018-08-10 04:46:41');
+INSERT INTO `system_plugin_history` VALUES ('674', 'iswtf.setinfo', 'comment', '1.0.4', 'Updated table iswtf_setinfo_sinfos', '2018-08-10 04:46:41');
+INSERT INTO `system_plugin_history` VALUES ('675', 'iswtf.setinfo', 'script', '1.0.5', 'builder_table_update_iswtf_setinfo_sinfos_3.php', '2018-08-10 07:05:32');
+INSERT INTO `system_plugin_history` VALUES ('676', 'iswtf.setinfo', 'comment', '1.0.5', 'Updated table iswtf_setinfo_sinfos', '2018-08-10 07:05:32');
+INSERT INTO `system_plugin_history` VALUES ('677', 'iswtf.setinfo', 'script', '1.0.6', 'builder_table_update_iswtf_setinfo_sinfos_4.php', '2018-08-10 07:09:12');
+INSERT INTO `system_plugin_history` VALUES ('678', 'iswtf.setinfo', 'comment', '1.0.6', 'Updated table iswtf_setinfo_sinfos', '2018-08-10 07:09:12');
 
 -- ----------------------------
 -- Table structure for `system_plugin_versions`
@@ -1983,7 +1992,7 @@ INSERT INTO `system_plugin_versions` VALUES ('19', 'Clake.UserExtended', '2.2.00
 INSERT INTO `system_plugin_versions` VALUES ('21', 'NSRosenqvist.TwigColorTools', '1.0.2', '2018-08-09 03:51:57', '0', '0');
 INSERT INTO `system_plugin_versions` VALUES ('23', 'Hambern.Company', '1.5.0', '2018-08-09 03:58:03', '0', '0');
 INSERT INTO `system_plugin_versions` VALUES ('24', 'Inetis.ListSwitch', '1.0.2', '2018-08-09 06:09:00', '0', '0');
-INSERT INTO `system_plugin_versions` VALUES ('27', 'iswtf.setinfo', '1.0.3', '2018-08-09 07:56:44', '0', '0');
+INSERT INTO `system_plugin_versions` VALUES ('27', 'iswtf.setinfo', '1.0.6', '2018-08-10 07:09:12', '0', '0');
 
 -- ----------------------------
 -- Table structure for `system_request_logs`

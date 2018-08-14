@@ -1,10 +1,17 @@
 <?php return [
-    'plugin' => [
-        'name' => '网站设置',
-        'description' => '',
-    ],
+    'name' => '网站设置',
+    'description' => '网站设置',
     'companyname' => '公司名称',
     'companyaddress' => '公司地址',
     'latitude' => '地理纬度',
     'longitude' => '地理经度',
+    'coordinate' => '拾取坐标',
+    'mapcoordinate' => '拾取坐标',
+    'mapview' => '地图预览',
+    'tel' => '电话',
+    'address' => '地址',
+    'mname' => '网站设置',
+    'eupdate' => '更新信息',
+    'UpdateWebsiteInformationSuccessfully' => '成功更新信息',
+    'updateok' => '成功更新信息',
 ];

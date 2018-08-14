@@ -1,0 +1,48 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('iswtf/setinfo/sinfo') ?>"><?= e(trans('iswtf.setinfo::lang.name')) ?></a></li>
+        <li><?= e(trans('iswtf.setinfo::lang.mapcoordinate')) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<div id="map" style="height:420px;"></div>
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>
+<script type="text/javascript">
+	// 百度地图API功能
+	var map = new BMap.Map("map");
+	
+	var point = new BMap.Point(<?= e($latitude) ?>, <?= e($longitude) ?>);        //创建一个点
+     map.centerAndZoom(point, 18);                       //设立中心点和地图级别，就是初始化地图
+	//map.centerAndZoom(new BMap.Point(108.330581,22.815518),18);
+	map.addControl(new BMap.NavigationControl());
+	//var myIcon = new BMap.Icon("http://www.resonance.net.cn/images/map-imagse.png", new BMap.Size(52,42));  //定义自己的标注
+
+	
+	var marker1 = new BMap.Marker(new BMap.Point(<?= e($latitude) ?>,<?= e($longitude) ?>),{
+		//icon:myIcon
+	});  //创建标注
+	
+	
+	
+	
+
+	map.addOverlay(marker1);                 // 将标注添加到地图中
+	
+	
+	var label = new BMap.Label("<?= e($company) ?>", {
+offset: new BMap.Size(15, -25)
+});
+
+
+
+
+
+
+marker1.setLabel(label); //为标注添加一个标签
+	
+	//创建信息窗口
+	var infoWindow1 = new BMap.InfoWindow("<?= e($company) ?><br><?= e($tel) ?><br><p style='word-break:keep-all;white-space:nowrap;'><?= e($address) ?></p>");
+	marker1.addEventListener("click", function(){this.openInfoWindow(infoWindow1);});
+	
+</script>

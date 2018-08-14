@@ -1,0 +1,8 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('iswtf/setinfo/sinfo') ?>"><?= e(trans('iswtf.setinfo::lang.name')) ?></a></li>
+        <li><?= e(trans('iswtf.setinfo::lang.mapcoordinate')) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<iframe src="http://api.map.baidu.com/lbsapi/getpoint/index.html" style="width:100%;height:98%;" scrolling="no" frameborder="no"></iframe>

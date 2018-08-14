@@ -1,4 +1,11 @@
 fields:
+    logo:
+        label: Logo
+        mode: image
+        imageWidth: '200'
+        imageHeight: '200'
+        span: auto
+        type: mediafinder
     company:
         label: 'iswtf.setinfo::lang.companyname'
         span: auto
@@ -13,5 +20,9 @@ fields:
         type: text
     longitude:
         label: 'iswtf.setinfo::lang.longitude'
+        span: auto
+        type: text
+    tel:
+        label: 'iswtf.setinfo::lang.tel'
         span: auto
         type: text

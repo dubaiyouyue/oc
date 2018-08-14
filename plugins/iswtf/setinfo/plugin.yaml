@@ -1,24 +1,24 @@
 plugin:
-    name: 'iswtf.setinfo::lang.plugin.name'
+    name: 'iswtf.setinfo::lang.name'
     description: 'iswtf.setinfo::lang.plugin.description'
     author: iswtf
     icon: oc-icon-copyright
     homepage: ''
 navigation:
     main-menu-item:
-        label: 'iswtf.setinfo::lang.plugin.name'
-        url: iswtf/setinfo/sinfo
+        label: 'iswtf.setinfo::lang.mname'
+        url: iswtf/setinfo/sinfo/update/1
         icon: icon-copyright
         sideMenu:
             side-menu-item2:
-                label: 编辑
-                url: iswtf/setinfo/sinfo/create/1
+                label: 'iswtf.setinfo::lang.eupdate'
+                url: iswtf/setinfo/sinfo/update/1
                 icon: icon-edit
-            side-menu-item3:
-                label: 信息
-                url: iswtf/setinfo/sinfo
-                icon: icon-info-circle
             side-menu-item:
-                label: 地图
-                url: /
+                label: 'iswtf.setinfo::lang.mapview'
+                url: iswtf/setinfo/mapview
                 icon: icon-map-marker
+            mapcoordinate:
+                label: 'iswtf.setinfo::lang.mapcoordinate'
+                url: iswtf/setinfo/mapcoordinate
+                icon: icon-thumb-tack
